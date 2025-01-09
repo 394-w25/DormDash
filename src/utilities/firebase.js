@@ -3,11 +3,15 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { getDatabase, ref, set, update, onValue } from 'firebase/database';
-import { useState, useEffect, useCallback } from 'react';
-
-
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { getDatabase, ref, set, update, onValue } from "firebase/database";
+import { useState, useEffect, useCallback } from "react";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,7 +21,7 @@ const firebaseConfig = {
   projectId: "dormdash-c26fe",
   storageBucket: "dormdash-c26fe.firebasestorage.app",
   messagingSenderId: "846732477359",
-  appId: "1:846732477359:web:aa0c06dde69aff25c5a55a"
+  appId: "1:846732477359:web:aa0c06dde69aff25c5a55a",
 };
 
 // Initialize Firebase
@@ -27,36 +31,35 @@ const database = getDatabase(firebase);
 
 // Sign in with Google
 export const signInWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth, new GoogleAuthProvider());
-      const user = result.user;
-  
-      if (user) {
-        // Create or update user in the database
-        const userRef = ref(database, `users/${user.uid}`);
-        set(userRef, {
-          displayName: user.displayName,
-          email: user.email,
-        });
-  
-        // Create requests sub-table and add a test request
-        const requestsRef = ref(database, `users/${user.uid}/requests`);
-        set(requestsRef, {
-          testRequest: {
-            description: "This is a test request.",
-            timestamp: Date.now(),
-          },
-        });
-      }
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
+  try {
+    const result = await signInWithPopup(auth, new GoogleAuthProvider());
+    const user = result.user;
+
+    if (user) {
+      // Create or update user in the database
+      const userRef = ref(database, `users/${user.uid}`);
+      set(userRef, {
+        displayName: user.displayName,
+        email: user.email,
+      });
+
+      // Create requests sub-table and add a test request
+      const requestsRef = ref(database, `users/${user.uid}/requests`);
+      set(requestsRef, {
+        testRequest: {
+          description: "This is a test request.",
+          timestamp: Date.now(),
+        },
+      });
     }
-  };
-  
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
+  }
+};
 
 // Sign out
 export const firebaseSignOut = () => {
-  signOut(auth).catch((error) => console.error('Error signing out:', error));
+  signOut(auth).catch((error) => console.error("Error signing out:", error));
 };
 
 // Custom Hook: Track authentication state
@@ -88,7 +91,7 @@ export const useDbData = (path) => {
       },
       (error) => {
         setError(error);
-      }
+      },
     );
 
     return unsubscribe; // Cleanup on unmount
@@ -100,14 +103,22 @@ export const useDbData = (path) => {
 // Custom Hook: Update data in the database
 export const useDbUpdate = (path) => {
   const [result, setResult] = useState();
-  
+
   const updateData = useCallback(
     (value) => {
       update(ref(database, path), value)
-        .then(() => setResult({ timestamp: Date.now(), message: "Update successful", error: null }))
-        .catch((error) => setResult({ timestamp: Date.now(), message: "Update failed", error }));
+        .then(() =>
+          setResult({
+            timestamp: Date.now(),
+            message: "Update successful",
+            error: null,
+          }),
+        )
+        .catch((error) =>
+          setResult({ timestamp: Date.now(), message: "Update failed", error }),
+        );
     },
-    [path]
+    [path],
   );
 
   return [updateData, result];
