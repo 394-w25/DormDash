@@ -3,6 +3,12 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { getDatabase, ref, set, update, onValue } from 'firebase/database';
+import { useState, useEffect, useCallback } from 'react';
+
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAOHWWkUowBHFyJGNQBY_KKuUepDVjJcIM",
@@ -15,4 +21,94 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
+const database = getDatabase(firebase);
+
+// Sign in with Google
+export const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, new GoogleAuthProvider());
+      const user = result.user;
+  
+      if (user) {
+        // Create or update user in the database
+        const userRef = ref(database, `users/${user.uid}`);
+        set(userRef, {
+          displayName: user.displayName,
+          email: user.email,
+        });
+  
+        // Create requests sub-table and add a test request
+        const requestsRef = ref(database, `users/${user.uid}/requests`);
+        set(requestsRef, {
+          testRequest: {
+            description: "This is a test request.",
+            timestamp: Date.now(),
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  };
+  
+
+// Sign out
+export const firebaseSignOut = () => {
+  signOut(auth).catch((error) => console.error('Error signing out:', error));
+};
+
+// Custom Hook: Track authentication state
+export const useAuthState = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return unsubscribe; // Cleanup on unmount
+  }, []);
+
+  return [user];
+};
+
+// Custom Hook: Read data from the database
+export const useDbData = (path) => {
+  const [data, setData] = useState();
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const dbRef = ref(database, path);
+    const unsubscribe = onValue(
+      dbRef,
+      (snapshot) => {
+        setData(snapshot.val());
+      },
+      (error) => {
+        setError(error);
+      }
+    );
+
+    return unsubscribe; // Cleanup on unmount
+  }, [path]);
+
+  return [data, error];
+};
+
+// Custom Hook: Update data in the database
+export const useDbUpdate = (path) => {
+  const [result, setResult] = useState();
+  
+  const updateData = useCallback(
+    (value) => {
+      update(ref(database, path), value)
+        .then(() => setResult({ timestamp: Date.now(), message: "Update successful", error: null }))
+        .catch((error) => setResult({ timestamp: Date.now(), message: "Update failed", error }));
+    },
+    [path]
+  );
+
+  return [updateData, result];
+};
