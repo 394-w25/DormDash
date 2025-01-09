@@ -22,8 +22,8 @@ const Posts = () => {
 
   return (
     <>
-      <h1 className="text-center text-7xl font-black">Posts</h1>
-      <section className="gap-4 grid [grid-template-columns:_repeat(auto-fit,_minmax(500px,_1fr))]">
+      <h1 className="text-center text-7xl font-black py-12">Posts</h1>
+      <section className="mx-auto w-1/2 gap-8 grid [grid-template-columns:_repeat(auto-fit,_minmax(400px,_1fr))]">
         {allRequests.map((request, idx) => (
           <Post key={idx} request={request} />
         ))}
