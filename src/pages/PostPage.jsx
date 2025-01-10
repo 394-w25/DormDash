@@ -22,7 +22,7 @@ function PostPage() {
   })
   
 
-  // here we update the saved form data
+  // here we update the saved form data - called whenever a user changes something in the form
   const handleInputChange = (e) => {
     const { id, value, type, checked } = e.target;
     if (type == "checkbox") {
@@ -42,17 +42,22 @@ function PostPage() {
     
   };
 
+  // handle the actual clicking of the submit button - authenticate, validate the data has been set right,
+  // post to firebase
   const handleSubmit = () => {
+    // auth
     if (!user) {
       alert('Please sign in to post a request');
       return;
     }
 
+    // validate that the user has filled out data correctly
     if (!formData.title || !formData.location || !formData.description) {
       alert("Please fill out all of the fields and select at least one tag.");
       return;
     }
-    
+
+    // build the request
     const requestData = {
       [`request_${Date.now()}`]: { 
         title: formData.title,
@@ -65,6 +70,7 @@ function PostPage() {
       }
     };
 
+    // write to firebase
     updateData(requestData);
     navigate('/');
   };
