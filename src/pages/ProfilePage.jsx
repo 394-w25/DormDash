@@ -69,16 +69,24 @@ const ProfilePage = () => {
       const testRequest = requests.testRequest;
       return testRequest.isFulfilled ? testRequest : null;
     })
-    .filter((request) => request !== null); // Remove null values
+    .filter((request) => request !== null);
+
+  const currentUser = user[0].user;
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      {/* User Info Section */}
       <div className="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg mb-6">
         <h1 className="text-3xl font-bold mb-2 text-center">Profile Page</h1>
         <div className="flex flex-col items-center text-gray-700">
-          <p className="text-lg font-semibold">Name: {}</p>
-          <p className="text-lg">Email: </p>
+          {/* Profile Picture Placeholder */}
+          <div className="w-24 h-24 rounded-full bg-gray-300 mb-4 flex items-center justify-center">
+            {/* Optional Initials */}
+            <span className="text-2xl font-semibold text-gray-500">
+              {currentUser.displayName[0]}
+            </span>
+          </div>
+          <p className="text-lg font-semibold">{currentUser.displayName}</p>
+          <p className="text-lg">Email: {currentUser.email}</p>
         </div>
       </div>
 
