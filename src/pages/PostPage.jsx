@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDbData, useDbUpdate, useAuthState } from "../utilities/firebase";
+import { useDbUpdate, useAuthState } from "../utilities/firebase";
+import SignIn from "../components/SignIn";
 
 function PostPage() {
   const [user] = useAuthState(); // current user
@@ -74,131 +75,137 @@ function PostPage() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-    >
-      <h1>Post a New Request</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: 20,
-          marginBottom: 40,
-          gap: 40,
-        }}
-      >
+    <>
+      {user ? (
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            gap: 15,
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
           }}
         >
-          Request Details
-          <input
-            type="text"
-            name="Title"
-            id="title"
-            placeholder="Request"
-            value={formData.title}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="Location"
-            id="location"
-            placeholder="Location"
-            value={formData.location}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="Body"
-            id="description"
-            placeholder="Request description"
-            value={formData.description}
-            onChange={handleInputChange}
-          />
-          <input
-            type="number"
-            name="Suggested Compensation"
-            id="compensation"
-            // defaultValue={0}
-            value={formData.compensation}
-            onChange={handleInputChange}
-          />
+          <h1>Post a New Request</h1>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 20,
+              marginBottom: 40,
+              gap: 40,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                gap: 15,
+              }}
+            >
+              Request Details
+              <input
+                type="text"
+                name="Title"
+                id="title"
+                placeholder="Request"
+                value={formData.title}
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                name="Location"
+                id="location"
+                placeholder="Location"
+                value={formData.location}
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                name="Body"
+                id="description"
+                placeholder="Request description"
+                value={formData.description}
+                onChange={handleInputChange}
+              />
+              <input
+                type="number"
+                name="Suggested Compensation"
+                id="compensation"
+                // defaultValue={0}
+                value={formData.compensation}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                gap: 15,
+              }}
+            >
+              Tags (please select atleast 1)
+              <label>
+                <input
+                  type="checkbox"
+                  id="cleaning"
+                  checked={formData.tags.cleaning}
+                  onChange={handleInputChange}
+                />
+                Cleaning
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  id="transportation"
+                  checked={formData.tags.transportation}
+                  onChange={handleInputChange}
+                />
+                Transportation
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  id="other"
+                  checked={formData.tags.other}
+                  onChange={handleInputChange}
+                />
+                Other
+              </label>
+              <input
+                type="text"
+                name="Additional Tags"
+                id="additionalTags"
+                placeholder="Additional tags"
+                value={formData.additionalTags}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <button
+            onClick={handleSubmit}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              backgroundColor: "#C39BD3",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Post
+          </button>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            gap: 15,
-          }}
-        >
-          Tags (please select atleast 1)
-          <label>
-            <input
-              type="checkbox"
-              id="cleaning"
-              checked={formData.tags.cleaning}
-              onChange={handleInputChange}
-            />
-            Cleaning
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="transportation"
-              checked={formData.tags.transportation}
-              onChange={handleInputChange}
-            />
-            Transportation
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="other"
-              checked={formData.tags.other}
-              onChange={handleInputChange}
-            />
-            Other
-          </label>
-          <input
-            type="text"
-            name="Additional Tags"
-            id="additionalTags"
-            placeholder="Additional tags"
-            value={formData.additionalTags}
-            onChange={handleInputChange}
-          />
-        </div>
-      </div>
-      <button
-        onClick={handleSubmit}
-        style={{
-          padding: "10px 20px",
-          borderRadius: "5px",
-          backgroundColor: "#C39BD3",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        Post
-      </button>
-    </div>
+      ) : (
+        <SignIn />
+      )}
+    </>
   );
 }
 
