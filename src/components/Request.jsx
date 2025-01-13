@@ -10,9 +10,11 @@ const Request = ({ request }) => {
         <h2 className="text-4xl font-semibold text-gray-800">
           {request.title}
         </h2>
+        {/*
         <span className="bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">
           Completed
         </span>
+     */}
       </div>
 
       {/* Request Description */}
@@ -32,7 +34,7 @@ const Request = ({ request }) => {
           Compensation: ${request.compensation}
         </div>
 
-        {/* Completed On */}
+        {/* Timestamp */}
         <div className="flex items-center">
           <ClockIcon />
           Posted on: {new Date(request.timestamp).toLocaleString()}
