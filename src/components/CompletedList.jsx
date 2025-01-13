@@ -31,7 +31,9 @@ import React from "react";
 function CompletedRequestsList({ requests }) {
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">Completed Requests</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">
+        Completed Requests
+      </h1>
 
       {requests && Object.keys(requests).length > 0 ? (
         <ul className="space-y-6">
@@ -91,7 +93,6 @@ function CompletedRequestsList({ requests }) {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                      
                         <text x="6" y="18" fontSize="20" fill="currentColor">
                           $
                         </text>
@@ -120,7 +121,7 @@ function CompletedRequestsList({ requests }) {
                     </div>
                   </div>
                 </li>
-              )
+              ),
           )}
         </ul>
       ) : (
