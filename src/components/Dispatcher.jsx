@@ -8,6 +8,7 @@ const Dispatcher = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/user_profile" element={<ProfilePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/post" element={<PostPage />} />
         <Route path="/posts" element={<PostsPage />} />
