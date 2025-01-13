@@ -31,10 +31,7 @@ function CompletedRequestsList({ requests }) {
       {completedRequests.length > 0 ? (
         <ul className="space-y-6">
           {completedRequests.map((request) => (
-            <li
-              key={`${request.userId}-${request.requestId}`}
-              className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200"
-            >
+            <li key={`${request.userId}-${request.requestId}`}>
               <Request request={request} />
             </li>
           ))}

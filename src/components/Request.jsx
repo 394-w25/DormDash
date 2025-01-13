@@ -4,7 +4,7 @@ import ClockIcon from "./ClockIcon.jsx";
 
 const Request = ({ request }) => {
   return (
-    <>
+    <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200">
       {/* Title and Badge */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-gray-800">{request.title}</h2>
@@ -36,7 +36,7 @@ const Request = ({ request }) => {
           Completed on: {new Date(request.timestamp).toLocaleString()}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
