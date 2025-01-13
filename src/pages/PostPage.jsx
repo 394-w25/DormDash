@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDbData, useDbUpdate, useAuthState } from "../utilities/firebase";
+import { useDbUpdate, useAuthState } from "../utilities/firebase";
 
 function PostPage() {
   const [user] = useAuthState(); // current user
