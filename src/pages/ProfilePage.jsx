@@ -7,71 +7,23 @@ import {
 import CompletedRequests from "../components/CompletedList";
 
 const ProfilePage = () => {
-  //   const [user] = useAuthState();
+  const [user] = useAuthState();
 
-  const user = [
-    {
-      user: {
-        id: "rjhmWHDlCKNK085asZXjf1OtgvZ2",
-        displayName: "Darin",
-        email: "darinweberr@gmail.com",
-        requests: {
-          testRequest: {
-            compensation: 0,
-            description: "This is a 1 test request.",
-            location: "Northwestern",
-            timestamp: 1736463455002,
-            title: "Test request",
-            isFulfilled: true,
-          },
-        },
-      },
-    },
-    {
-      user: {
-        id: "rjhmWHDlCKNK085asZXjf1OtgvZ2",
-        displayName: "Darin",
-        email: "darinweberr@gmail.com",
-        requests: {
-          testRequest: {
-            compensation: 0,
-            description: "This is a 2 test request.",
-            location: "Northwestern",
-            timestamp: 1736463455002,
-            title: "Test request",
-            isFulfilled: false,
-          },
-        },
-      },
-    },
-    {
-      user: {
-        id: "rjhmWHDlCKNK085asZXjf1OtgvZ2",
-        displayName: "Darin",
-        email: "darinweberr@gmail.com",
-        requests: {
-          testRequest: {
-            compensation: 0,
-            description: "This is a 3 test request.",
-            location: "Northwestern",
-            timestamp: 1736463455002,
-            title: "Test request",
-            isFulfilled: true,
-          },
-        },
-      },
-    },
-  ];
-
-  const fulfilledRequests = user
-    .map((item) => {
-      const { requests } = item.user;
-      const testRequest = requests.testRequest;
-      return testRequest.isFulfilled ? testRequest : null;
-    })
-    .filter((request) => request !== null);
-
-  const currentUser = user[0].user;
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold text-center">
+          You must be signed in to view this page.
+        </h1>
+        <button
+          onClick={signInWithGoogle}
+          className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
+        >
+          Sign in with Google
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
@@ -82,17 +34,24 @@ const ProfilePage = () => {
           <div className="w-24 h-24 rounded-full bg-gray-300 mb-4 flex items-center justify-center">
             {/* Optional Initials */}
             <span className="text-2xl font-semibold text-gray-500">
-              {currentUser.displayName[0]}
+              {user.displayName[0]}
             </span>
           </div>
-          <p className="text-lg font-semibold">{currentUser.displayName}</p>
-          <p className="text-lg">Email: {currentUser.email}</p>
+          <p className="text-lg font-semibold">{user.displayName}</p>
+          <p className="text-lg">Email: {user.email}</p>
+          <button
+            onClick={firebaseSignOut}
+            className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
 
-      {/* Loading the Requests Section */}
+      {/* Completed Requests Section */}
       <div className="w-full max-w-3xl">
-        <CompletedRequests requests={fulfilledRequests} />
+        <CompletedRequests requests={[]} />
+        {/* You can pass completed requests here if they are derived from user */}
       </div>
     </div>
   );
