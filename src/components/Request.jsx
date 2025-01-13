@@ -35,7 +35,7 @@ const Request = ({ request }) => {
         {/* Completed On */}
         <div className="flex items-center">
           <ClockIcon />
-          Completed on: {new Date(request.timestamp).toLocaleString()}
+          Posted on: {new Date(request.timestamp).toLocaleString()}
         </div>
       </div>
     </div>
