@@ -3,14 +3,14 @@ import HomePage from "../pages/HomePage"; // Ensure the case matches your file n
 import PostPage from "../pages/PostPage";
 
 const Dispatcher = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/post" element={<PostPage />} />
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/post" element={<PostPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default Dispatcher;

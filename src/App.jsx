@@ -1,9 +1,9 @@
-import Dispatcher from './components/Dispatcher';
+import Dispatcher from "./components/Dispatcher";
 
 function App() {
   return (
     <div>
-      <Dispatcher/>
+      <Dispatcher />
     </div>
   );
 }
