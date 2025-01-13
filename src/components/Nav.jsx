@@ -8,7 +8,7 @@ const Nav = () => {
         <a href="/post" className="hover:underline">
           Create
         </a>
-        <a href="" className="hover:underline">
+        <a href="/profile" className="hover:underline">
           Profile
         </a>
       </div>
