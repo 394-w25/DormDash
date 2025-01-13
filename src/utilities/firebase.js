@@ -48,6 +48,9 @@ export const signInWithGoogle = async () => {
       set(requestsRef, {
         testRequest: {
           description: "This is a test request.",
+          title: "Test request",
+          location: "Northwestern",
+          compensation: 0,
           timestamp: Date.now(),
         },
       });

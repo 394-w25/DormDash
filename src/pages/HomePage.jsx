@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   signInWithGoogle,
   firebaseSignOut,
@@ -6,6 +7,7 @@ import {
 
 const HomePage = () => {
   const [user] = useAuthState();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -19,8 +21,21 @@ const HomePage = () => {
     >
       <h1>Welcome to DormDash</h1>
       {user ? (
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
           <p>Welcome, {user.displayName}!</p>
+          <button
+            onClick={() => navigate("/post")}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              backgroundColor: "#C39BD3",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Post New Request
+          </button>
           <button
             onClick={firebaseSignOut}
             style={{

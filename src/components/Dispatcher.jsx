@@ -1,13 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"; // Add this line
-import HomePage from "../pages/HomePage"; // Ensure the case matches your file name
-import ProfilePage from "../pages/ProfilePage";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "../pages/HomePage";
+import PostPage from "../pages/PostPage";
+import PostsPage from "../pages/PostsPage";
 
 const Dispatcher = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<HomePage />} /> */}
-        <Route path="/" element={<ProfilePage />} />
+        <Route path="/user_profile" element={<ProfilePage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/post" element={<PostPage />} />
+        <Route path="/posts" element={<PostsPage />} />
       </Routes>
     </BrowserRouter>
   );
