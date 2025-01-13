@@ -1,7 +1,10 @@
 const Nav = () => {
   return (
-    <nav>
-      <div className="w-min ml-auto flex flex-row gap-8 px-48 py-4 text-2xl font-semibold">
+    <nav className="flex flex-row px-4 pt-4 justify-between text-2xl">
+      <a href="/" className="font-black">
+        DormDash
+      </a>
+      <div className="w-min ml-auto flex flex-row gap-2 sm:gap-8 font-semibold">
         <a href="/posts" className="hover:underline">
           Home
         </a>
