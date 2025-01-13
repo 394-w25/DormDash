@@ -1,5 +1,8 @@
 import { useDbData } from "../utilities/firebase.js";
 import React from "react";
+import LocationIcon from "./LocationIcon.jsx";
+import MoneyIcon from "./MoneyIcon.jsx";
+import ClockIcon from "./ClockIcon.jsx";
 
 function CompletedRequestsList({ requests }) {
   const [data, error] = useDbData("/");
@@ -51,61 +54,19 @@ function CompletedRequestsList({ requests }) {
               <div className="space-y-2 text-sm text-gray-500">
                 {/* Location */}
                 <div className="flex items-center">
-                  <svg
-                    className="w-5 h-5 mr-2 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 2c3.866 0 7 3.134 7 7 0 5.25-7 13-7 13S5 14.25 5 9c0-3.866 3.134-7 7-7z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 11a2 2 0 100-4 2 2 0 000 4z"
-                    />
-                  </svg>
+                  <LocationIcon />
                   Location: {request.location}
                 </div>
 
                 {/* Compensation */}
                 <div className="flex items-center">
-                  <svg
-                    className="w-5 h-5 mr-2 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <text x="6" y="18" fontSize="20" fill="currentColor">
-                      $
-                    </text>
-                  </svg>
+                  <MoneyIcon />
                   Compensation: ${request.compensation}
                 </div>
 
                 {/* Completed On */}
                 <div className="flex items-center">
-                  <svg
-                    className="w-5 h-5 mr-2 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <ClockIcon />
                   Completed on: {new Date(request.timestamp).toLocaleString()}
                 </div>
               </div>
