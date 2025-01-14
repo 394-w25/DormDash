@@ -1,5 +1,5 @@
 import { describe } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "./utils.jsx";
 import Request from "../components/Request";
 
 const request = {
