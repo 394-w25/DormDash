@@ -2,6 +2,7 @@ import { firebaseSignOut, useAuthState } from "../utilities/firebase";
 import SignIn from "../components/SignIn";
 
 import CompletedRequests from "../components/CompletedList";
+import InitialsPicture from "../components/InitialsPicture";
 
 const ProfilePage = () => {
   const [user] = useAuthState();
@@ -16,12 +17,7 @@ const ProfilePage = () => {
             </h1>
             <div className="flex flex-col items-center text-gray-700">
               {/* Profile Picture Placeholder */}
-              <div className="w-24 h-24 rounded-full bg-gray-300 mb-4 flex items-center justify-center">
-                {/* Optional Initials */}
-                <span className="text-2xl font-semibold text-gray-500">
-                  {user.displayName[0]}
-                </span>
-              </div>
+              <InitialsPicture displayName={user.displayName} />
               <p className="text-lg font-semibold">{user.displayName}</p>
               <p className="text-lg">Email: {user.email}</p>
               <button
