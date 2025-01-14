@@ -6,7 +6,6 @@ const request = {
   title: "Moving In",
   description: "I need help moving in",
   location: "Lincoln",
-  compensation: 10,
   timestamp: Date.now(),
 };
 
@@ -16,7 +15,6 @@ describe("Request component", () => {
     screen.getByText(request.title);
     screen.getByText(request.description);
     screen.getByText(request.location, { exact: false });
-    screen.getByText(request.compensation.toString(), { exact: false });
     screen.getByText(new Date(request.timestamp).toLocaleString(), {
       exact: false,
     });
