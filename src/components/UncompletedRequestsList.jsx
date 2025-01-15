@@ -1,34 +1,44 @@
-import { useDbData } from "../utilities/firebase.js";
+import { useDbData, useAuthState } from "../utilities/firebase.js";
 import React from "react";
 import Request from "./Request.jsx";
 
 function UncompletedRequestsList({ requests }) {
   const [data, error] = useDbData("/");
-  console.log("data", data);
+  const [user] = useAuthState();
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  const uncompletedRequests = data.users
-    ? Object.entries(data.users).flatMap(([userId, user]) =>
-        Object.entries(user.requests || {})
-          .filter(([, request]) => !request.isFulfilled) // Changed to show unfulfilled requests
+  // Filter requests to only show the current user's requests
+  const myUncompletedRequests = data.users && user
+    ? Object.entries(data.users)
+      .filter(([userId]) => userId === user.uid) // Only get current user's data
+      .flatMap(([userId, userData]) =>
+        Object.entries(userData.requests || {})
+          .filter(([, request]) => !request.isFulfilled)
           .map(([requestId, request]) => ({
-            ...request,
             userId,
+            displayName: userData.displayName,
+            email: userData.email,
             requestId,
+            title: request.title,
+            location: request.location,
+            description: request.description,
+            compensation: request.compensation,
+            timestamp: request.timestamp,
+            isFulfilled: request.isFulfilled
           })),
       )
     : [];
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">Active Requests</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">My Active Requests</h1>
 
-      {uncompletedRequests.length > 0 ? (
+      {myUncompletedRequests.length > 0 ? (
         <ul className="space-y-6">
-          {uncompletedRequests.map((request) => (
+          {myUncompletedRequests.map((request) => (
             <li key={`${request.userId}-${request.requestId}`}>
               <Request request={request} />
             </li>
@@ -36,7 +46,7 @@ function UncompletedRequestsList({ requests }) {
         </ul>
       ) : (
         <p className="text-gray-500 text-center">
-          No active requests available.
+          You have no active requests.
         </p>
       )}
     </div>
