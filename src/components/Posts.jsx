@@ -18,7 +18,7 @@ const Posts = () => {
       compensation: request.compensation,
       timestamp: request.timestamp,
     })),
-  );
+  ).sort((a, b) => b.timestamp - a.timestamp); // Sort by timestamp in descending order
 
   return (
     <>
