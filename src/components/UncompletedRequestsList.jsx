@@ -11,30 +11,33 @@ function UncompletedRequestsList({ requests }) {
   if (!data) return <h1>No data found</h1>;
 
   // Filter requests to only show the current user's requests
-  const myUncompletedRequests = data.users && user
-    ? Object.entries(data.users)
-      .filter(([userId]) => userId === user.uid) // Only get current user's data
-      .flatMap(([userId, userData]) =>
-        Object.entries(userData.requests || {})
-          .filter(([, request]) => !request.isFulfilled)
-          .map(([requestId, request]) => ({
-            userId,
-            displayName: userData.displayName,
-            email: userData.email,
-            requestId,
-            title: request.title,
-            location: request.location,
-            description: request.description,
-            compensation: request.compensation,
-            timestamp: request.timestamp,
-            isFulfilled: request.isFulfilled
-          })),
-      )
-    : [];
+  const myUncompletedRequests =
+    data.users && user
+      ? Object.entries(data.users)
+          .filter(([userId]) => userId === user.uid) // Only get current user's data
+          .flatMap(([userId, userData]) =>
+            Object.entries(userData.requests || {})
+              .filter(([, request]) => !request.isFulfilled)
+              .map(([requestId, request]) => ({
+                userId,
+                displayName: userData.displayName,
+                email: userData.email,
+                requestId,
+                title: request.title,
+                location: request.location,
+                description: request.description,
+                compensation: request.compensation,
+                timestamp: request.timestamp,
+                isFulfilled: request.isFulfilled,
+              })),
+          )
+      : [];
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">My Active Requests</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">
+        My Active Requests
+      </h1>
 
       {myUncompletedRequests.length > 0 ? (
         <ul className="space-y-6">
