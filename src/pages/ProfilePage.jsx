@@ -1,7 +1,7 @@
 import { firebaseSignOut, useAuthState } from "../utilities/firebase";
 import SignIn from "../components/SignIn";
-
 import CompletedRequests from "../components/CompletedList";
+import UncompletedRequests from "../components/UncompletedRequestsList";
 import InitialsPicture from "../components/InitialsPicture";
 
 const ProfilePage = () => {
@@ -29,10 +29,14 @@ const ProfilePage = () => {
             </div>
           </div>
 
+          {/* Uncompleted Requests Section */}
+          <div className="w-full max-w-3xl mb-6">
+            <UncompletedRequests requests={[]} />
+          </div>
+
           {/* Completed Requests Section */}
           <div className="w-full max-w-3xl">
             <CompletedRequests requests={[]} />
-            {/* You can pass completed requests here if they are derived from user */}
           </div>
         </div>
       ) : (
