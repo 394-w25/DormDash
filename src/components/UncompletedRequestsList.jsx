@@ -12,21 +12,19 @@ function UncompletedRequestsList({ requests }) {
 
   const uncompletedRequests = data.users
     ? Object.entries(data.users).flatMap(([userId, user]) =>
-      Object.entries(user.requests || {})
-        .filter(([, request]) => !request.isFulfilled) // Changed to show unfulfilled requests
-        .map(([requestId, request]) => ({
-          ...request,
-          userId,
-          requestId,
-        })),
-    )
+        Object.entries(user.requests || {})
+          .filter(([, request]) => !request.isFulfilled) // Changed to show unfulfilled requests
+          .map(([requestId, request]) => ({
+            ...request,
+            userId,
+            requestId,
+          })),
+      )
     : [];
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        Active Requests
-      </h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Active Requests</h1>
 
       {uncompletedRequests.length > 0 ? (
         <ul className="space-y-6">
