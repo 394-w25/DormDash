@@ -11,27 +11,28 @@ function CompletedRequestsList() {
   if (!data) return <h1>No data found</h1>;
 
   // Filter to show only current user's completed requests
-  const completedRequests = data.users && user
-    ? Object.entries(data.users)
-      .filter(([userId]) => userId === user.uid)
-      .flatMap(([userId, userData]) =>
-        Object.entries(userData.requests || {})
-          .filter(([, request]) => request.isFulfilled)
-          .map(([requestId, request]) => ({
-            userId,
-            displayName: userData.displayName,
-            email: userData.email,
-            requestId,
-            title: request.title,
-            location: request.location,
-            description: request.description,
-            compensation: request.compensation,
-            timestamp: request.timestamp,
-            isFulfilled: request.isFulfilled,
-          })),
-      )
-      .sort((a, b) => b.timestamp - a.timestamp)
-    : [];
+  const completedRequests =
+    data.users && user
+      ? Object.entries(data.users)
+          .filter(([userId]) => userId === user.uid)
+          .flatMap(([userId, userData]) =>
+            Object.entries(userData.requests || {})
+              .filter(([, request]) => request.isFulfilled)
+              .map(([requestId, request]) => ({
+                userId,
+                displayName: userData.displayName,
+                email: userData.email,
+                requestId,
+                title: request.title,
+                location: request.location,
+                description: request.description,
+                compensation: request.compensation,
+                timestamp: request.timestamp,
+                isFulfilled: request.isFulfilled,
+              })),
+          )
+          .sort((a, b) => b.timestamp - a.timestamp)
+      : [];
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
