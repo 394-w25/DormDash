@@ -13,26 +13,40 @@ import { useState } from "react";
 const RequestForm = ({ redirectPath }) => {
   const navigate = useNavigate();
   const [user] = useAuthState();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [tagErrorMsg, setTagErrorMsg] = useState("");
+  const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`); // path to current user's requests
+  const TAGS = ["Buy", "Sell", "Borrow", "Other"];
+
+  const validate = (formData) => {
+    let isValid = true;
+    if (formData.get("compensation") < 0) {
+      setCompensationErrorMsg("Compensation cannot be negative.");
+      isValid = false;
+    } else setCompensationErrorMsg("");
+    if (formData.get("tags").length === 0) {
+      setTagErrorMsg("Please select at least one tag.");
+      isValid = false;
+    } else setTagErrorMsg("");
+    return isValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const tags = TAGS.map((tag) => formData.get(tag)).filter(
       (tag) => tag !== null,
     );
-    if (tags.length === 0) {
-      setErrorMsg("Please select at least one tag.");
-      return;
-    }
+    formData.append("tags", tags);
+    if (!validate(formData)) return;
     const requestData = {
       [`request_${Date.now()}`]: {
         title: formData.get("title"),
         location: formData.get("location"),
         description: formData.get("description"),
         compensation: formData.get("compensation"),
+        tags: formData.get("tags"),
         timestamp: Date.now(),
-        tags: tags,
       },
     };
     updateData(requestData);
@@ -40,7 +54,6 @@ const RequestForm = ({ redirectPath }) => {
       navigate(redirectPath);
     }
   };
-  const TAGS = ["Buy", "Sell", "Borrow", "Other"];
 
   return (
     <div className="flex flex-col items-center">
@@ -72,12 +85,13 @@ const RequestForm = ({ redirectPath }) => {
               label="Compensation"
               name="compensation"
               placeholder="0"
+              error={compensationErrorMsg}
             />
           </Stack>
           <Stack align="end">
             <Checkbox.Group
               label="Tags (select at least one)"
-              error={errorMsg}
+              error={tagErrorMsg}
               classNames={{ error: "[margin-top:_1rem_!important]" }}
             >
               {TAGS.map((tag, idx) => (
