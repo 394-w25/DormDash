@@ -1,15 +1,19 @@
 import {
-  Group,
   Stack,
   TextInput,
   NumberInput,
   Checkbox,
   Button,
+  Textarea,
 } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
+import { useState } from "react";
 
-const RequestForm = () => {
+const RequestForm = ({ redirectPath }) => {
+  const navigate = useNavigate();
   const [user] = useAuthState();
+  const [errorMsg, setErrorMsg] = useState("");
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`); // path to current user's requests
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,31 +21,37 @@ const RequestForm = () => {
     const tags = TAGS.map((tag) => formData.get(tag)).filter(
       (tag) => tag !== null,
     );
+    if (tags.length === 0) {
+      setErrorMsg("Please select at least one tag.");
+      return;
+    }
     const requestData = {
       [`request_${Date.now()}`]: {
-        title: formData.title,
-        location: formData.location,
-        description: formData.description,
-        compensation: formData.compensation,
+        title: formData.get("title"),
+        location: formData.get("location"),
+        description: formData.get("description"),
+        compensation: formData.get("compensation"),
         timestamp: Date.now(),
         tags: tags,
       },
     };
-    //updateData(requestData);
+    updateData(requestData);
+    if (redirectPath !== undefined) {
+      navigate(redirectPath);
+    }
   };
   const TAGS = ["Buy", "Sell", "Borrow", "Other"];
 
   return (
-    <>
-      <h1>Post a New Request</h1>
-      <form onSubmit={handleSubmit}>
-        <Group>
-          <Stack>
-            Request Details
+    <div className="flex flex-col items-center">
+      <form onSubmit={handleSubmit} className="sm:w-1/3 flex flex-col gap-8">
+        <div className="grid grid-cols-3 gap-x-8">
+          <h1 className="text-lg font-semibold col-span-3">Request Details</h1>
+          <Stack className="col-span-2">
             <TextInput
               label="Title"
               name="title"
-              placeholder="Request"
+              placeholder="Request title"
               required
             />
             <TextInput
@@ -50,10 +60,12 @@ const RequestForm = () => {
               placeholder="Location"
               required
             />
-            <TextInput
+            <Textarea
               label="Body"
               name="description"
               placeholder="Request description"
+              autosize
+              maxRows={4}
               required
             />
             <NumberInput
@@ -62,17 +74,31 @@ const RequestForm = () => {
               placeholder="0"
             />
           </Stack>
-          <Stack>
-            <Checkbox.Group label="Tags (select at least one)">
+          <Stack align="end">
+            <Checkbox.Group
+              label="Tags (select at least one)"
+              error={errorMsg}
+              classNames={{ error: "[margin-top:_1rem_!important]" }}
+            >
               {TAGS.map((tag, idx) => (
-                <Checkbox key={idx} name={tag} value={tag} label={tag} />
+                <Checkbox
+                  key={idx}
+                  name={tag}
+                  value={tag}
+                  label={tag}
+                  className="mt-4"
+                />
               ))}
             </Checkbox.Group>
           </Stack>
-        </Group>
-        <Button type="submit">Post</Button>
+        </div>
+        <div className="sm:w-1/4 mx-auto">
+          <Button type="submit" size="md" fullWidth={true}>
+            Post
+          </Button>
+        </div>
       </form>
-    </>
+    </div>
   );
 };
 
