@@ -28,14 +28,15 @@ const Posts = () => {
         tags: Object.entries(request.tags || {})
           .filter(([tag, value]) => value) // Extract tags with true values
           .map(([tag]) => tag),
-      }))
+      })),
     )
     .sort((a, b) => b.timestamp - a.timestamp);
 
   // Filter requests based on selected tags and compensation range
   const filteredRequests = allRequests.filter((request) => {
     const matchesTags =
-      selectedTags.length === 0 || selectedTags.every((tag) => request.tags.includes(tag));
+      selectedTags.length === 0 ||
+      selectedTags.every((tag) => request.tags.includes(tag));
     const matchesCompensation =
       request.compensation >= minCompensation &&
       (maxCompensation === "" || request.compensation <= maxCompensation);
@@ -47,10 +48,11 @@ const Posts = () => {
 
   // Toggle a tag's selection
   const toggleTag = (tag) => {
-    setSelectedTags((prevSelectedTags) =>
-      prevSelectedTags.includes(tag)
-        ? prevSelectedTags.filter((t) => t !== tag) // Remove the tag if already selected
-        : [...prevSelectedTags, tag] // Add the tag if not already selected
+    setSelectedTags(
+      (prevSelectedTags) =>
+        prevSelectedTags.includes(tag)
+          ? prevSelectedTags.filter((t) => t !== tag) // Remove the tag if already selected
+          : [...prevSelectedTags, tag], // Add the tag if not already selected
     );
   };
 
@@ -82,7 +84,10 @@ const Posts = () => {
         {/* Compensation */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-6">
           <div className="flex flex-col items-center">
-            <label htmlFor="minCompensation" className="text-sm font-semibold mb-2">
+            <label
+              htmlFor="minCompensation"
+              className="text-sm font-semibold mb-2"
+            >
               Min Compensation:
             </label>
             <input
@@ -94,7 +99,10 @@ const Posts = () => {
             />
           </div>
           <div className="flex flex-col items-center">
-            <label htmlFor="maxCompensation" className="text-sm font-semibold mb-2">
+            <label
+              htmlFor="maxCompensation"
+              className="text-sm font-semibold mb-2"
+            >
               Max Compensation:
             </label>
             <input
