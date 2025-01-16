@@ -2,7 +2,6 @@ import { useDbData, useAuthState } from "../utilities/firebase.js";
 import React from "react";
 import UserRequest from "./UserRequest.jsx";
 
-
 function UncompletedRequestsList({ requests }) {
   const [data, error] = useDbData("/");
   const [user] = useAuthState();
