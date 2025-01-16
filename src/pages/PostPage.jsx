@@ -4,7 +4,7 @@ import { useAuthState } from "../utilities/firebase";
 
 function PostPage() {
   const [user] = useAuthState();
-  return <>{user ? <RequestForm /> : <SignIn />}</>;
+  return <>{user ? <RequestForm redirectPath={"/posts"} /> : <SignIn />}</>;
 }
 
 export default PostPage;
