@@ -5,8 +5,6 @@ import SignIn from "../components/SignIn";
 const RequestForm = () => {
   const [user] = useAuthState(); // current user
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`); // path to current user's requests
-
-  // here we set the initial state of the form
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -42,12 +40,6 @@ const RequestForm = () => {
   // handle the actual clicking of the submit button - authenticate, validate the data has been set right,
   // post to firebase
   const handleSubmit = () => {
-    // auth
-    if (!user) {
-      alert("Please sign in to post a request");
-      return;
-    }
-
     // validate that the user has filled out data correctly
     if (!formData.title || !formData.location || !formData.description) {
       alert("Please fill out all of the fields and select at least one tag.");
