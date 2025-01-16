@@ -1,6 +1,6 @@
 import { useDbData, useAuthState } from "../utilities/firebase.js";
 import React from "react";
-import Request from "./Request.jsx";
+import UserRequest from "./UserRequest.jsx";
 
 function UncompletedRequestsList({ requests }) {
   const [data, error] = useDbData("/");
@@ -43,7 +43,7 @@ function UncompletedRequestsList({ requests }) {
         <ul className="space-y-6">
           {myUncompletedRequests.map((request) => (
             <li key={`${request.userId}-${request.requestId}`}>
-              <Request request={request} />
+              <UserRequest request={request} user={user} />
             </li>
           ))}
         </ul>
