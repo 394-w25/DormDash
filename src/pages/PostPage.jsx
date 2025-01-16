@@ -66,7 +66,6 @@ function PostPage() {
         timestamp: Date.now(),
         tags: formData.tags,
         additionalTags: formData.additionalTags.trim(),
-        isFulfilled: false,
       },
     };
 
