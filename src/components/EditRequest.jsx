@@ -11,7 +11,7 @@ const EditRequest = ({ request }) => {
   return (
     <>
       <Modal.Root opened={opened} onClose={close} size="lg" centered>
-        <Modal.Overlay onClick={(e) => e.stopPropagation()} />
+        <Modal.Overlay onClick={(e) => e.stopPropagation()} /> // this is needed to stop the request modal from opening
         <Modal.Content>
           <Modal.Body>
             <Modal.CloseButton className="[position:absolute_!important] right-5" />
