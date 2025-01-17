@@ -1,4 +1,5 @@
 import { Button } from "@mantine/core";
+import { modals } from "@mantine/modals";
 import { useDbRemove } from "../utilities/firebase";
 
 const DeleteRequest = ({ request }) => {
@@ -9,7 +10,16 @@ const DeleteRequest = ({ request }) => {
     removeData();
     console.log(result);
   };
-  return <Button onClick={handleClick}>DELETE</Button>;
+  const openConfirmModal = (e) => {
+    e.stopPropagation();
+    modals.openConfirmModal({
+      title: "Confirm delete",
+      children: <p>Are you sure you want to delete your request?</p>,
+      labels: { confirm: "Delete", cancel: "Cancel" },
+      onConfirm: handleClick,
+    });
+  };
+  return <Button onClick={openConfirmModal}>DELETE</Button>;
 };
 
 export default DeleteRequest;
