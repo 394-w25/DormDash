@@ -11,8 +11,8 @@ const EditRequest = ({ request }) => {
   return (
     <>
       <Modal.Root opened={opened} onClose={close} size="lg" centered>
-        /* for some reason calling stopPropagation is necessary here to stop the
-        request info modal from showing */
+        {/* for some reason calling stopPropagation is necessary here to stop the
+        request info modal from showing */}
         <Modal.Overlay onClick={(e) => e.stopPropagation()} />
         <Modal.Content onClick={(e) => e.stopPropagation()}>
           <Modal.Body>
