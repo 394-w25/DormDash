@@ -14,10 +14,10 @@ const EditRequest = ({ request }) => {
         /* for some reason calling stopPropagation is necessary here to stop the
         request info modal from showing */
         <Modal.Overlay onClick={(e) => e.stopPropagation()} />
-        <Modal.Content>
+        <Modal.Content onClick={(e) => e.stopPropagation()}>
           <Modal.Body>
             <Modal.CloseButton className="[position:absolute_!important] right-5" />
-            <RequestForm />
+            <RequestForm request={request} />
           </Modal.Body>
         </Modal.Content>
       </Modal.Root>
