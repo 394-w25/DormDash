@@ -6,7 +6,6 @@ const EditRequest = ({ request }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const handleClick = (e) => {
     e.stopPropagation();
-    console.log(e);
     open();
   };
   return (
