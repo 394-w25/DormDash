@@ -10,7 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
 import { useState } from "react";
 
-const RequestForm = ({ redirectPath }) => {
+// if request is provided, assumes form is in edit state
+const RequestForm = ({ redirectPath, request }) => {
+  console.log(request);
   const navigate = useNavigate();
   const [user] = useAuthState();
   const [tagErrorMsg, setTagErrorMsg] = useState("");
@@ -40,7 +42,7 @@ const RequestForm = ({ redirectPath }) => {
     formData.append("tags", tags);
     if (!validate(formData)) return;
     const requestData = {
-      [`request_${Date.now()}`]: {
+      [request ? request.requestId : `request_${Date.now()}`]: {
         title: formData.get("title"),
         location: formData.get("location"),
         description: formData.get("description"),
@@ -57,7 +59,7 @@ const RequestForm = ({ redirectPath }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <form onSubmit={handleSubmit} className="sm:w-1/3 flex flex-col gap-8">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
         <div className="grid grid-cols-3 gap-x-8">
           <h1 className="text-lg font-semibold col-span-3">Request Details</h1>
           <Stack className="col-span-2">
@@ -65,18 +67,21 @@ const RequestForm = ({ redirectPath }) => {
               label="Title"
               name="title"
               placeholder="Request title"
+              defaultValue={request?.title}
               required
             />
             <TextInput
               label="Location"
               name="location"
               placeholder="Location"
+              defaultValue={request?.location}
               required
             />
             <Textarea
               label="Body"
               name="description"
               placeholder="Request description"
+              defaultValue={request?.description}
               autosize
               maxRows={4}
               required
@@ -85,6 +90,7 @@ const RequestForm = ({ redirectPath }) => {
               label="Compensation"
               name="compensation"
               placeholder="0"
+              defaultValue={request?.compensation}
               error={compensationErrorMsg}
             />
           </Stack>
@@ -93,17 +99,19 @@ const RequestForm = ({ redirectPath }) => {
               label="Tags (select at least one)"
               error={tagErrorMsg}
               classNames={{ error: "[margin-top:_1rem_!important]" }}
-            >
+            ></Checkbox.Group>
+            <Stack justify="start" className="w-full">
               {TAGS.map((tag, idx) => (
                 <Checkbox
                   key={idx}
                   name={tag}
                   value={tag}
                   label={tag}
-                  className="mt-4"
+                  defaultChecked={request?.tags.includes(tag)}
+                  className="mt-2"
                 />
               ))}
-            </Checkbox.Group>
+            </Stack>
           </Stack>
         </div>
         <div className="sm:w-1/4 mx-auto">
