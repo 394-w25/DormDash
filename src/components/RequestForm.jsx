@@ -116,7 +116,7 @@ const RequestForm = ({ redirectPath, request }) => {
         </div>
         <div className="sm:w-1/4 mx-auto">
           <Button type="submit" size="md" fullWidth={true}>
-            Post
+            {request ? "Update" : "Post"}
           </Button>
         </div>
       </form>
