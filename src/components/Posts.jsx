@@ -17,6 +17,7 @@ const Posts = () => {
         location: request.location,
         description: request.description,
         compensation: request.compensation,
+        tags: request.tags,
         timestamp: request.timestamp,
       })),
     )
