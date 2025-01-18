@@ -6,14 +6,11 @@ import {
   Button,
   Textarea,
 } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
 import { useState } from "react";
 
 // if request is provided, assumes form is in edit state
-const RequestForm = ({ redirectPath, request }) => {
-  console.log(request);
-  const navigate = useNavigate();
+const RequestForm = ({ redirectPath, request, callback }) => {
   const [user] = useAuthState();
   const [tagErrorMsg, setTagErrorMsg] = useState("");
   const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
@@ -55,6 +52,7 @@ const RequestForm = ({ redirectPath, request }) => {
     if (redirectPath !== undefined) {
       navigate(redirectPath);
     }
+    if (callback) callback();
   };
 
   return (

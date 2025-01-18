@@ -17,7 +17,7 @@ const EditRequest = ({ request }) => {
         <Modal.Content onClick={(e) => e.stopPropagation()}>
           <Modal.Body>
             <Modal.CloseButton className="[position:absolute_!important] right-5" />
-            <RequestForm request={request} />
+            <RequestForm request={request} callback={close} />
           </Modal.Body>
         </Modal.Content>
       </Modal.Root>
