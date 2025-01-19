@@ -37,12 +37,14 @@ export const signInWithGoogle = async () => {
 
     if (user) {
       const email = user.email;
-      const validDomains = ['@u.northwestern.edu', '@northwestern.edu'];
+      const validDomains = ["@u.northwestern.edu", "@northwestern.edu"];
 
-      const isValidEmail = validDomains.some((domain) => email.endsWith(domain));
+      const isValidEmail = validDomains.some((domain) =>
+        email.endsWith(domain),
+      );
 
       if (!isValidEmail) {
-        alert('You must use a Northwestern email to sign in.');
+        alert("You must use a Northwestern email to sign in.");
         await signOut(auth); // Sign out if the email is invalid
         return;
       }
