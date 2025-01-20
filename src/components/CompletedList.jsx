@@ -1,8 +1,9 @@
-import { useDbData } from "../utilities/firebase.js";
+import { useAuthState, useDbData } from "../utilities/firebase.js";
 import React from "react";
 import Request from "./Request.jsx";
 
 function CompletedRequestsList() {
+  const [user] = useAuthState();
   const [data, error] = useDbData("/");
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
@@ -10,16 +11,22 @@ function CompletedRequestsList() {
   if (!data) return <h1>No data found</h1>;
 
   const completedRequests = data.users
-    ? Object.entries(data.users).flatMap(([userId, user]) =>
-        Object.entries(user.requests || {})
-          .filter(([, request]) => request.isFulfilled) // Only fulfilled requests
-          .map(([requestId, request]) => ({
-            ...request,
-            userId,
-            requestId,
-          })),
-      ).sort((a, b) => b.timestamp - a.timestamp)
+    ? Object.entries(data.users)
+        .flatMap(([userId, user]) =>
+          Object.entries(user.requests || {})
+            .filter(([, request]) => request.isFulfilled) // Only fulfilled requests
+            .map(([requestId, request]) => ({
+              ...request,
+              displayName: user.displayName,
+              email: user.email,
+              userId,
+              requestId,
+            })),
+        )
+        .sort((a, b) => b.timestamp - a.timestamp)
     : [];
+
+  console.log(completedRequests);
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
