@@ -6,7 +6,6 @@ import EditRequest from "./EditRequest.jsx";
 import DeleteRequest from "./DeleteRequest.jsx";
 import { Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useAuthState } from "../utilities/firebase.js";
 
 const Request = ({ request }) => {
   const [opened, { open, close }] = useDisclosure(false);
