@@ -9,17 +9,14 @@ const Posts = () => {
   const allRequests = Object.entries(data.users)
     .flatMap(([userId, user]) =>
       Object.entries(user.requests || {}).map(([requestId, request]) => ({
-        userId,
+        ...request,
         displayName: user.displayName,
         email: user.email,
+        userId,
         requestId,
-        title: request.title,
-        location: request.location,
-        description: request.description,
-        compensation: request.compensation,
-        timestamp: request.timestamp,
       })),
     )
+    .filter((request) => !request.isFulfilled)
     .sort((a, b) => b.timestamp - a.timestamp); // Sort by timestamp in descending order
 
   return (
