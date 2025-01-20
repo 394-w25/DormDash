@@ -54,6 +54,7 @@ export const signInWithGoogle = async () => {
       set(userRef, {
         displayName: user.displayName,
         email: user.email,
+        photoURL: user.photoURL,
       });
 
       // Create requests sub-table and add a test request
