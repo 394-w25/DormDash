@@ -10,7 +10,14 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { getDatabase, ref, set, update, onValue } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  update,
+  onValue,
+  remove,
+} from "firebase/database";
 import { useState, useEffect, useCallback } from "react";
 
 // Your web app's Firebase configuration
@@ -139,4 +146,27 @@ export const useDbUpdate = (path) => {
   );
 
   return [updateData, result];
+};
+
+export const useDbRemove = (path) => {
+  const [result, setResult] = useState();
+  const removeData = useCallback(() => {
+    console.log(path);
+    remove(ref(database, path))
+      .then(() =>
+        setResult({
+          timestamp: Date.now(),
+          message: "Removal successful",
+          error: null,
+        }),
+      )
+      .catch((error) =>
+        setResult({
+          timestamp: Date.now(),
+          message: "Removal failed",
+          error,
+        }),
+      );
+  }, [path]);
+  return [removeData, result];
 };

@@ -3,6 +3,7 @@ import RequestInfo from "./RequestInfo.jsx";
 import RequestModal from "./RequestModal.jsx";
 import ResolveRequest from "./ResolveRequest.jsx";
 import EditRequest from "./EditRequest.jsx";
+import DeleteRequest from "./DeleteRequest.jsx";
 import { Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -20,6 +21,7 @@ const Request = ({ request }) => {
           <Group>
             <ResolveRequest request={request} />
             <EditRequest request={request} />
+            <DeleteRequest request={request} />
           </Group>
         )}
         <RequestInfo request={request} />
