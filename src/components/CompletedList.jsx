@@ -2,9 +2,8 @@ import { useDbData } from "../utilities/firebase.js";
 import React from "react";
 import Request from "./Request.jsx";
 
-function CompletedRequestsList({ requests }) {
+function CompletedRequestsList() {
   const [data, error] = useDbData("/");
-  console.log("data", data);
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <h1>Loading data...</h1>;
@@ -19,7 +18,7 @@ function CompletedRequestsList({ requests }) {
             userId,
             requestId,
           })),
-      )
+      ).sort((a, b) => b.timestamp - a.timestamp)
     : [];
 
   return (
