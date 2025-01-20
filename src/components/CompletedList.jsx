@@ -24,7 +24,7 @@ function CompletedRequestsList() {
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-center">
-        Completed Requests
+        My Completed Requests
       </h1>
 
       {completedRequests.length > 0 ? (
@@ -37,7 +37,7 @@ function CompletedRequestsList() {
         </ul>
       ) : (
         <p className="text-gray-500 text-center">
-          No completed requests available.
+          You have no completed requests.
         </p>
       )}
     </div>
