@@ -19,14 +19,13 @@ function CompletedRequestsList() {
               ...request,
               displayName: user.displayName,
               email: user.email,
+              photoURL: user.photoURL,
               userId,
               requestId,
             })),
         )
         .sort((a, b) => b.timestamp - a.timestamp)
     : [];
-
-  console.log(completedRequests);
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">

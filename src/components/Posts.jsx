@@ -10,6 +10,7 @@ const Posts = () => {
     .flatMap(([userId, user]) =>
       Object.entries(user.requests || {}).map(([requestId, request]) => ({
         ...request,
+        photoURL: user.photoURL,
         displayName: user.displayName,
         email: user.email,
         userId,
