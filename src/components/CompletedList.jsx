@@ -28,7 +28,6 @@ function CompletedRequestsList() {
     : [];
 
   return (
-
     <>
       {completedRequests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
