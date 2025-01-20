@@ -29,27 +29,26 @@ function UncompletedRequestsList({ requests }) {
           )
       : [];
 
-  return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        My Active Requests
-      </h1>
-
-      {myUncompletedRequests.length > 0 ? (
-        <ul className="space-y-6">
-          {myUncompletedRequests.map((request) => (
-            <li key={`${request.userId}-${request.requestId}`}>
-              <Request request={request} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-gray-500 text-center">
-          You have no active requests.
-        </p>
-      )}
-    </div>
-  );
-}
+      return (
+        <>
+          {myUncompletedRequests.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {myUncompletedRequests.map((request) => (
+                <div
+                  key={`${request.userId}-${request.requestId}`}
+                  className="bg-gray-50 p-4 shadow-md rounded-md"
+                >
+                  <Request request={request} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center">
+              You have no active requests.
+            </p>
+          )}
+        </>
+      );
+    }
 
 export default UncompletedRequestsList;
