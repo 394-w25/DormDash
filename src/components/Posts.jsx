@@ -30,9 +30,7 @@ const Posts = () => {
         compensation: request.compensation || 0,
         timestamp: request.timestamp,
         isFulfilled: request.isFulfilled || false,
-        tags: Object.entries(request.tags || {})
-          .filter(([tag, value]) => value) // Extract tags with true values
-          .map(([tag]) => tag),
+        tags: ((request.tags || "") + "").split(",").map((tag) => tag.trim()),
       })),
     )
     .sort((a, b) => b.timestamp - a.timestamp);
