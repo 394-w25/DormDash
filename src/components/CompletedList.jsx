@@ -16,6 +16,9 @@ function CompletedRequestsList({ requests }) {
           .filter(([, request]) => request.isFulfilled) // Only fulfilled requests
           .map(([requestId, request]) => ({
             ...request,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
             userId,
             requestId,
           })),
