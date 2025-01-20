@@ -19,16 +19,12 @@ function UncompletedRequestsList({ requests }) {
             Object.entries(userData.requests || {})
               .filter(([, request]) => !request.isFulfilled)
               .map(([requestId, request]) => ({
-                userId,
+                ...request,
+                photoURL: userData.photoURL,
                 displayName: userData.displayName,
                 email: userData.email,
+                userId,
                 requestId,
-                title: request.title,
-                location: request.location,
-                description: request.description,
-                compensation: request.compensation,
-                timestamp: request.timestamp,
-                isFulfilled: request.isFulfilled,
               })),
           )
       : [];

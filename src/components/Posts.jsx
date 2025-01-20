@@ -18,9 +18,11 @@ const Posts = () => {
   const allRequests = Object.entries(data.users)
     .flatMap(([userId, user]) =>
       Object.entries(user.requests || {}).map(([requestId, request]) => ({
-        userId,
+        ...request,
+        photoURL: user.photoURL,
         displayName: user.displayName,
         email: user.email,
+        userId,
         requestId,
         title: request.title,
         location: request.location,
