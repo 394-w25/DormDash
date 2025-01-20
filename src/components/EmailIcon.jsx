@@ -5,7 +5,6 @@ const EmailIcon = () => {
       viewBox="0 -2.5 20 20"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
     >
       <g
         id="Page-1"
