@@ -1,7 +1,9 @@
 import { useAuthState } from "../utilities/firebase.js";
-import EditRequest from "./EditRequest.jsx";
 import RequestInfo from "./RequestInfo.jsx";
 import RequestModal from "./RequestModal.jsx";
+import ResolveRequest from "./ResolveRequest.jsx";
+import EditRequest from "./EditRequest.jsx";
+import { Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 const Request = ({ request }) => {
@@ -14,7 +16,12 @@ const Request = ({ request }) => {
         onClick={open}
         className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200"
       >
-        {user?.uid === request?.userId && <EditRequest request={request} />}
+        {user?.uid === request?.userId && (
+          <Group>
+            <ResolveRequest request={request} />
+            <EditRequest request={request} />
+          </Group>
+        )}
         <RequestInfo request={request} />
       </div>
     </>
