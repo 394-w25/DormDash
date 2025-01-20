@@ -43,11 +43,25 @@ export const signInWithGoogle = async () => {
     const user = result.user;
 
     if (user) {
+      const email = user.email;
+      const validDomains = ["@u.northwestern.edu", "@northwestern.edu"];
+
+      const isValidEmail = validDomains.some((domain) =>
+        email.endsWith(domain),
+      );
+
+      if (!isValidEmail) {
+        alert("You must use a Northwestern email to sign in.");
+        await signOut(auth); // Sign out if the email is invalid
+        return;
+      }
+
       // Create or update user in the database
       const userRef = ref(database, `users/${user.uid}`);
       set(userRef, {
         displayName: user.displayName,
         email: user.email,
+        photoURL: user.photoURL,
       });
 
       // Create requests sub-table and add a test request
