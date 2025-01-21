@@ -18,7 +18,7 @@ const ProfilePage = () => {
               <div flex-row items-center>
                 <h2
                   className="text-2xl font-bold mb-4 text-left"
-                  style={{ fontFamily: 'Lato, sans-serif' }}
+                  style={{ fontFamily: "Lato, sans-serif" }}
                 >
                   Profile Page
                 </h2>
@@ -27,14 +27,16 @@ const ProfilePage = () => {
                   <div>
                     <p
                       className="text-lg font-semibold"
-                      style={{ fontFamily: 'Lato, sans-serif' }}
+                      style={{ fontFamily: "Lato, sans-serif" }}
                     >
-                      {user.displayName}</p>
+                      {user.displayName}
+                    </p>
                     <p
                       className="text-sm text-gray-500"
-                      style={{ fontFamily: 'Lato, sans-serif' }}
+                      style={{ fontFamily: "Lato, sans-serif" }}
                     >
-                      {user.email}</p>
+                      {user.email}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -42,7 +44,7 @@ const ProfilePage = () => {
               <button
                 onClick={firebaseSignOut}
                 className="absolute top-20 absolute right-12 px-6 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
-                style={{ fontFamily: 'Lato, sans-serif' }}
+                style={{ fontFamily: "Lato, sans-serif" }}
               >
                 Sign Out
               </button>
@@ -54,7 +56,7 @@ const ProfilePage = () => {
             <div className="bg-white w-full p-6 mt-6 shadow-lg">
               <h2
                 className="text-2xl font-bold mb-4 text-left"
-                style={{ fontFamily: 'Lato, sans-serif' }}
+                style={{ fontFamily: "Lato, sans-serif" }}
               >
                 Active Requests
               </h2>
@@ -68,9 +70,8 @@ const ProfilePage = () => {
             <div className="bg-white w-full p-6 mt-6 shadow-lg">
               <h2
                 className="text-2xl font-bold mb-4 text-left"
-                style={{ fontFamily: 'Lato, sans-serif' }}
+                style={{ fontFamily: "Lato, sans-serif" }}
               >
-
                 Pending Requests
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -84,9 +85,8 @@ const ProfilePage = () => {
             <div className="bg-white w-full p-6 mt-6 shadow-lg">
               <h2
                 className="text-2xl font-bold mb-4 text-left"
-                style={{ fontFamily: 'Lato, sans-serif' }}
+                style={{ fontFamily: "Lato, sans-serif" }}
               >
-
                 Completed Requests
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

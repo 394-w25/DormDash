@@ -17,7 +17,7 @@ function UncompletedRequestsList({ requests }) {
           .filter(([userId]) => userId === user.uid) // Only get current user's data
           .flatMap(([userId, userData]) =>
             Object.entries(userData.requests || {})
-                // pending
+              // pending
               .filter(([, request]) => request.isFulfilled)
               .map(([requestId, request]) => ({
                 ...request,
