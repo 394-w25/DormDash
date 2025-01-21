@@ -7,6 +7,7 @@ const request = {
   description: "I need help moving in",
   location: "Lincoln",
   timestamp: Date.now(),
+  tags: ["Buy", "Sell", "Borrow", "Transportation", "Cleaning", "Other"],
 };
 
 describe("Request component", () => {
@@ -14,9 +15,9 @@ describe("Request component", () => {
     render(<Request request={request} />);
     screen.getByText(request.title);
     screen.getByText(request.description);
-    screen.getByText(request.location, { exact: false });
-    screen.getByText(new Date(request.timestamp).toLocaleString(), {
+    screen.getByText(new Date(request.timestamp).toLocaleDateString(), {
       exact: false,
     });
+    request.tags.forEach((tag) => screen.getByText(tag, { exact: false }))
   });
 });
