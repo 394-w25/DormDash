@@ -1,4 +1,5 @@
 import { useDbData } from "../utilities/firebase.js";
+import { getRequests } from "../utilities/request.js";
 import Request from "./Request.jsx";
 
 import { useState } from "react";
@@ -15,25 +16,7 @@ const Posts = () => {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  const allRequests = Object.entries(data.users)
-    .flatMap(([userId, user]) =>
-      Object.entries(user.requests || {}).map(([requestId, request]) => ({
-        ...request,
-        photoURL: user.photoURL,
-        displayName: user.displayName,
-        email: user.email,
-        userId,
-        requestId,
-        title: request.title,
-        location: request.location,
-        description: request.description,
-        compensation: request.compensation || 0,
-        timestamp: request.timestamp,
-        isFulfilled: request.isFulfilled || false,
-        tags: ((request.tags || "") + "").split(",").map((tag) => tag.trim()),
-      })),
-    )
-    .sort((a, b) => b.timestamp - a.timestamp);
+  const allRequests = getRequests(data, {});
 
   // Filter requests based on selected tags and compensation range
   const filteredRequests = allRequests.filter((request) => {
