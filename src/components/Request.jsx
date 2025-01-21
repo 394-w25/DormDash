@@ -17,6 +17,7 @@ const Request = ({ request }) => {
         onClick={open}
         className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200"
       >
+        <RequestInfo request={request} />
         {user?.uid === request?.userId && (
           <Group>
             <ResolveRequest request={request} />
@@ -24,7 +25,6 @@ const Request = ({ request }) => {
             <DeleteRequest request={request} />
           </Group>
         )}
-        <RequestInfo request={request} />
       </div>
     </>
   );
