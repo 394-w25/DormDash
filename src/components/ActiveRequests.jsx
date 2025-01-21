@@ -1,8 +1,9 @@
 import { useDbData, useAuthState } from "../utilities/firebase.js";
 import React from "react";
 import Request from "./Request.jsx";
+import { getRequests } from "../utilities/request.js";
 
-function UncompletedRequestsList({ requests }) {
+function ActiveRequests() {
   const [data, error] = useDbData("/");
   const [user] = useAuthState();
 
@@ -10,34 +11,19 @@ function UncompletedRequestsList({ requests }) {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  // Filter requests to only show the current user's requests
-  const myUncompletedRequests =
-    data.users && user
-      ? Object.entries(data.users)
-          .filter(([userId]) => userId === user.uid) // Only get current user's data
-          .flatMap(([userId, userData]) =>
-            Object.entries(userData.requests || {})
-              .filter(([, request]) => !request.isFulfilled)
-              .map(([requestId, request]) => ({
-                ...request,
-                photoURL: userData.photoURL,
-                displayName: userData.displayName,
-                email: userData.email,
-                userId,
-                requestId,
-              })),
-          )
-      : [];
-
+  const activeRequests = getRequests(data, {
+    userFilter: (userId) => userId === user.uid,
+    requestFilter: (request) => !request.isFulfilled,
+  });
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-center">
         My Active Requests
       </h1>
 
-      {myUncompletedRequests.length > 0 ? (
+      {activeRequests.length > 0 ? (
         <ul className="space-y-6">
-          {myUncompletedRequests.map((request) => (
+          {activeRequests.map((request) => (
             <li key={`${request.userId}-${request.requestId}`}>
               <Request request={request} />
             </li>
@@ -52,4 +38,4 @@ function UncompletedRequestsList({ requests }) {
   );
 }
 
-export default UncompletedRequestsList;
+export default ActiveRequests;

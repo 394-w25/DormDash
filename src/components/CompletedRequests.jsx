@@ -1,8 +1,9 @@
 import { useAuthState, useDbData } from "../utilities/firebase.js";
 import React from "react";
 import Request from "./Request.jsx";
+import { getRequests } from "../utilities/request.js";
 
-function CompletedRequestsList() {
+function CompletedRequests() {
   const [user] = useAuthState();
   const [data, error] = useDbData("/");
 
@@ -10,23 +11,10 @@ function CompletedRequestsList() {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  const completedRequests = data.users
-    ? Object.entries(data.users)
-        .flatMap(([userId, user]) =>
-          Object.entries(user.requests || {})
-            .filter(([, request]) => request.isFulfilled) // Only fulfilled requests
-            .map(([requestId, request]) => ({
-              ...request,
-              displayName: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL,
-              userId,
-              requestId,
-            })),
-        )
-        .sort((a, b) => b.timestamp - a.timestamp)
-    : [];
-
+  const completedRequests = getRequests(data, {
+    userFilter: (userId) => userId === user.uid,
+    requestFilter: (request) => request.isFulfilled,
+  });
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-center">
@@ -50,4 +38,4 @@ function CompletedRequestsList() {
   );
 }
 
-export default CompletedRequestsList;
+export default CompletedRequests;
