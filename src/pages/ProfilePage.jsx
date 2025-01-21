@@ -1,7 +1,7 @@
 import { firebaseSignOut, useAuthState } from "../utilities/firebase";
 import SignIn from "../components/SignIn";
-import CompletedRequests from "../components/CompletedList";
-import UncompletedRequests from "../components/UncompletedRequestsList";
+import CompletedRequests from "../components/CompletedRequests";
+import ActiveRequests from "../components/ActiveRequests";
 import ProfilePicture from "../components/ProfilePicture";
 
 const ProfilePage = () => {
@@ -27,15 +27,11 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-
-          {/* Uncompleted Requests Section */}
           <div className="w-full max-w-3xl mb-6">
-            <UncompletedRequests requests={[]} />
+            <ActiveRequests />
           </div>
-
-          {/* Completed Requests Section */}
           <div className="w-full max-w-3xl">
-            <CompletedRequests requests={[]} />
+            <CompletedRequests />
           </div>
         </div>
       ) : (
