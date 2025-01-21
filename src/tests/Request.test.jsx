@@ -18,6 +18,6 @@ describe("Request component", () => {
     screen.getByText(new Date(request.timestamp).toLocaleDateString(), {
       exact: false,
     });
-    request.tags.forEach((tag) => screen.getByText(tag, { exact: false }))
+    request.tags.forEach((tag) => screen.getByText(tag, { exact: false }));
   });
 });
