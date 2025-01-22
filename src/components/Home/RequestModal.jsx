@@ -4,12 +4,9 @@ import RequestTags from "../RequestTags";
 const RequestModal = ({ opened, onClose, request }) => {
   const emailSubject = `Inquiry about: ${request.title}`;
   const emailBody = `Hello ${request.displayName},\n\nI’m interested in your request titled "${request.title}". Please let me know more details.\n\nBest regards,\n[Your Name]`;
-
   const emailLink = `mailto:${request.email}?subject=${encodeURIComponent(
     emailSubject,
   )}&body=${encodeURIComponent(emailBody)}`;
-
-  // console.log("Email Link:", emailLink); // Add this line for debugging
 
   return (
     <Modal.Root opened={opened} onClose={onClose} size="lg" centered>
@@ -46,7 +43,6 @@ const RequestModal = ({ opened, onClose, request }) => {
               )}
             </Group>
           </Stack>
-          <Modal.CloseButton className="[position:absolute_!important] right-5" />
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>

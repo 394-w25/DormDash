@@ -68,7 +68,6 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-
           {/* Requests Sections */}
           <div className="mt-4 space-y-4">
             {/* Active */}

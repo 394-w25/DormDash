@@ -8,7 +8,6 @@ const RequestTags = ({ request }) => {
     Transportation: "violet",
     Cleaning: "orange",
   };
-
   const tags = Array.isArray(request.tags) ? request.tags : [];
 
   return (
