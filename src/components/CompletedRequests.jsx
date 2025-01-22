@@ -11,28 +11,10 @@ function CompletedRequests() {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-<<<<<<<< HEAD:src/components/CompletedRequests.jsx
   const completedRequests = getRequests(data, {
     userFilter: (userId) => userId === user.uid,
     requestFilter: (request) => request.isFulfilled,
   });
-========
-  const completedRequests =
-    user && data.users
-      ? Object.entries(data.users[user.uid]?.requests || {})
-          .filter(([, request]) => request.isFulfilled)
-          .map(([requestId, request]) => ({
-            ...request,
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-            userId: user.uid,
-            requestId,
-          }))
-          .sort((a, b) => b.timestamp - a.timestamp)
-      : [];
-
->>>>>>>> master:src/components/CompletedList.jsx
   return (
     <>
       {completedRequests.length > 0 ? (

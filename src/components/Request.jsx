@@ -1,8 +1,5 @@
 import { useAuthState } from "../utilities/firebase.js";
-<<<<<<< HEAD
 import ProfilePicture from "./ProfilePicture.jsx";
-=======
->>>>>>> master
 import RequestTags from "./RequestTags.jsx";
 import RequestModal from "./RequestModal.jsx";
 import ResolveRequest from "./ResolveRequest.jsx";
