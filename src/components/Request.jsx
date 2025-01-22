@@ -42,6 +42,7 @@ const Request = ({ request }) => {
                 <Text>
                   Posted on: {new Date(request.timestamp).toLocaleDateString()}
                 </Text>
+                <Text>Location: {request.location}</Text>
               </div>
             </Group>
           </div>
