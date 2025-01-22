@@ -2,19 +2,15 @@ import RequestInfo from "./RequestInfo.jsx";
 import ContactInfo from "./ContactInfo.jsx";
 import { Modal } from "@mantine/core";
 
-
-const RequestModal = ({ opened, onClose, request  }) => {
-
+const RequestModal = ({ opened, onClose, request }) => {
   const emailSubject = `Inquiry about: ${request.title}`;
   const emailBody = `Hello ${request.displayName},\n\nI’m interested in your request titled "${request.title}". Please let me know more details.\n\nBest regards,\n[Your Name]`;
 
   const emailLink = `mailto:${request.email}?subject=${encodeURIComponent(
-    emailSubject
+    emailSubject,
   )}&body=${encodeURIComponent(emailBody)}`;
 
   // console.log("Email Link:", emailLink); // Add this line for debugging
-
-
 
   return (
     <Modal.Root opened={opened} onClose={onClose} size="lg" centered>
@@ -37,9 +33,6 @@ const RequestModal = ({ opened, onClose, request  }) => {
               Email Poster
             </button>
           </div>
-
-
-
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>
@@ -47,5 +40,3 @@ const RequestModal = ({ opened, onClose, request  }) => {
 };
 
 export default RequestModal;
-
-
