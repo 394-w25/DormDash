@@ -6,15 +6,14 @@ import ProfilePage from "../pages/ProfilePage";
 
 const Dispatcher = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/user_profile" element={<ProfilePage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/post" element={<PostPage />} />
-        <Route path="/posts" element={<PostsPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/user_profile" element={<ProfilePage />} />
+      {/* <Route path="/" element={<HomePage />} /> */}
+      <Route path="/" element={<PostsPage />} />
+      <Route path="/post" element={<PostPage />} />
+      <Route path="/posts" element={<PostsPage />} />
+      <Route path="/profile/*" element={<ProfilePage />} />
+    </Routes>
   );
 };
 
