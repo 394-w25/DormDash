@@ -19,7 +19,7 @@ function ActiveRequests() {
     <>
       {activeRequests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {myUncompletedRequests.map((request) => (
+          {activeRequests.map((request) => (
             <Request request={request} />
           ))}
         </div>
