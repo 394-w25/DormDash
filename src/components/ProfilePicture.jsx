@@ -1,8 +1,11 @@
+import blankPicture from "/blank-profile-circle.png";
+
 const ProfilePicture = ({ photoURL }) => {
   return (
-    <div className="flex items-center justify-center">
-      <img src={photoURL} className="w-24 h-24 rounded-full"></img>
-    </div>
+    <img
+      src={photoURL ? photoURL : blankPicture}
+      className="rounded-full h-full"
+    ></img>
   );
 };
 
