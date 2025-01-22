@@ -1,6 +1,5 @@
-import RequestInfo from "./RequestInfo.jsx";
-import ContactInfo from "./ContactInfo.jsx";
-import { Modal } from "@mantine/core";
+import { Button, Group, Text, Modal, Stack } from "@mantine/core";
+import RequestTags from "./RequestTags";
 
 const RequestModal = ({ opened, onClose, request }) => {
   const emailSubject = `Inquiry about: ${request.title}`;
@@ -17,22 +16,37 @@ const RequestModal = ({ opened, onClose, request }) => {
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Body>
+          <Stack>
+            <Group justify="space-between">
+              <Text size="xl" fw={700}>
+                Request
+              </Text>
+              <RequestTags request={request} />
+            </Group>
+            <h1 className="text-2xl font-bold">{request.title}</h1>
+            <div className="flex flex-col">
+              <Text>Posted by: {request.displayName}</Text>
+              <Text>
+                Posted on: {new Date(request.timestamp).toLocaleString()}
+              </Text>
+              <Text>Location: {request.location}</Text>
+            </div>
+            <Text>{request.description}</Text>
+            <Text>Max compensation: ${request.compensation}</Text>
+            <Group justify="space-between">
+              <Button onClick={onClose}>BACK</Button>
+              {!request.isFulfilled && (
+                <Button
+                  onClick={() => {
+                    window.location.href = emailLink; // Redirect to mailto link explicitly
+                  }}
+                >
+                  CONTACT
+                </Button>
+              )}
+            </Group>
+          </Stack>
           <Modal.CloseButton className="[position:absolute_!important] right-5" />
-          <RequestInfo request={request} />
-          <hr className="my-8" />
-          <ContactInfo request={request} />
-
-          {/* Email Poster Button */}
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => {
-                window.location.href = emailLink; // Redirect to mailto link explicitly
-              }}
-              className="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-blue-600 transition"
-            >
-              Email Poster
-            </button>
-          </div>
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>
