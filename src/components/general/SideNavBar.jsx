@@ -23,7 +23,11 @@ export function SideNavBar({ scrollToSection }) {
   ));
 
   return (
-    <nav className="bg-white h-window w-52 min-w-52 p-[20px] pt-[5px] mr-4 flex flex-col border-r border-gray-300">
+    <nav
+      role="navigation"
+      data-testid="sidebar"
+      className="bg-white h-window w-52 min-w-52 p-[20px] pt-[5px] mr-4 flex flex-col border-r border-gray-300"
+    >
       <ScrollArea className="flex-1 -mx-md">
         <div>{links}</div>
       </ScrollArea>

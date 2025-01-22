@@ -62,7 +62,7 @@ export const LinksGroup = ({
             <Box ml="md">{label}</Box>
           </Box>
           {hasLinks && (
-            <UnstyledButton
+            <div
               onClick={(e) => {
                 e.stopPropagation();
                 setOpened((o) => !o);
@@ -76,7 +76,7 @@ export const LinksGroup = ({
                 stroke={1.5}
                 size={16}
               />
-            </UnstyledButton>
+            </div>
           )}
         </Group>
       </UnstyledButton>

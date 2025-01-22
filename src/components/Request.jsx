@@ -10,6 +10,7 @@ import { useDisclosure } from "@mantine/hooks";
 const Request = ({ request }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [user] = useAuthState();
+
   return (
     <>
       <RequestModal opened={opened} onClose={close} request={request} />

@@ -10,7 +10,10 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="h-14 bg-body-light border-b border-gray-200 px-md">
+    <header
+      role="header"
+      className="h-14 bg-body-light border-b border-gray-200 px-md"
+    >
       <div className="h-14 flex justify-between items-center">
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />

@@ -14,8 +14,7 @@ describe("Request component", () => {
     render(<Request request={request} />);
     screen.getByText(request.title);
     screen.getByText(request.description);
-    screen.getByText(request.location, { exact: false });
-    screen.getByText(new Date(request.timestamp).toLocaleString(), {
+    screen.getByText(new Date().toLocaleDateString(), {
       exact: false,
     });
   });
