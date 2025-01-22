@@ -1,8 +1,8 @@
 import { firebaseSignOut, useAuthState } from "../utilities/firebase";
 import React, { useRef } from "react";
 import SignIn from "../components/SignIn";
-import CompletedRequests from "../components/CompletedList";
-import UncompletedRequests from "../components/UncompletedRequestsList";
+import CompletedRequests from "../components/CompletedRequests";
+import ActiveRequests from "../components/ActiveRequests";
 import ProfilePicture from "../components/ProfilePicture";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
@@ -65,7 +65,6 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-
           {/* Requests Sections */}
           <div className="mt-4 space-y-4">
             {/* Active Requests */}
@@ -80,7 +79,7 @@ const ProfilePage = () => {
                 Active Requests
               </h2>
               <div className="grid grid-cols-1 gap-4">
-                <UncompletedRequests requests={[]} />
+                <ActiveRequests />
               </div>
             </div>
 
@@ -108,8 +107,8 @@ const ProfilePage = () => {
               >
                 Completed Requests
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <CompletedRequests requests={[]} />
+              <div className="grid grid-cols-1 gap-4">
+                <CompletedRequests />
               </div>
             </div>
           </div>
