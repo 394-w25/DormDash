@@ -16,6 +16,7 @@ function ActiveRequests() {
     requestFilter: (request) => !request.isFulfilled,
   });
   return (
+<<<<<<<< HEAD:src/components/ActiveRequests.jsx
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-6 text-center">
         My Active Requests
@@ -27,14 +28,19 @@ function ActiveRequests() {
             <li key={`${request.userId}-${request.requestId}`}>
               <Request request={request} />
             </li>
+========
+    <>
+      {myUncompletedRequests.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {myUncompletedRequests.map((request) => (
+            <Request request={request} />
+>>>>>>>> master:src/components/UncompletedRequestsList.jsx
           ))}
-        </ul>
+        </div>
       ) : (
-        <p className="text-gray-500 text-center">
-          You have no active requests.
-        </p>
+        <p className="text-gray-500 text-start">You have no active requests.</p>
       )}
-    </div>
+    </>
   );
 }
 

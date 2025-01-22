@@ -8,14 +8,16 @@ const RequestTags = ({ request }) => {
     Transportation: "violet",
     Cleaning: "orange",
   };
+  const tags = Array.isArray(request.tags) ? request.tags : [];
+
   return (
     <Group>
-      {request.tags.map((tag, idx) => (
+      {tags.map((tag, idx) => (
         <Badge
           size="lg"
           radius="md"
           variant="filled"
-          color={TAGTOCOLOR[tag] ? TAGTOCOLOR[tag] : "blue"}
+          color={TAGTOCOLOR[tag] || "blue"}
           key={idx}
           className="[padding:1rem_!important]"
         >
