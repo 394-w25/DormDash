@@ -1,5 +1,5 @@
-import { useDbData } from "../utilities/firebase.js";
-import { getRequests } from "../utilities/request.js";
+import { useDbData } from "../../utilities/firebase.js";
+import { getRequests } from "../../utilities/request.js";
 import Request from "./Request.jsx";
 
 const Posts = ({
@@ -47,7 +47,7 @@ const Posts = ({
 
   return (
     <div className="flex flex-col flex-1">
-      <h1 className="font-lato text-start text-2xl font-bold py-4">Posts</h1>
+      <h1 className="font-lato text-start text-2xl font-bold py-4">Home</h1>
 
       {/* Filtered Posts */}
       <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -1,6 +1,6 @@
-import { useAuthState, useDbData } from "../utilities/firebase.js";
+import { useAuthState, useDbData } from "../../utilities/firebase.js";
 import React from "react";
-import Request from "./Request.jsx";
+import Request from "../Home/Request.jsx";
 
 function CompletedRequestsList() {
   const [user] = useAuthState();
@@ -30,12 +30,7 @@ function CompletedRequestsList() {
       {completedRequests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {completedRequests.map((request) => (
-            <div
-              key={`${request.userId}-${request.requestId}`}
-              className="bg-gray-50 p-4 shadow-md rounded-md"
-            >
-              <Request request={request} />
-            </div>
+            <Request key={request.requestId} request={request} />
           ))}
         </div>
       ) : (

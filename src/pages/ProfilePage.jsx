@@ -1,10 +1,12 @@
 import { firebaseSignOut, useAuthState } from "../utilities/firebase";
 import React, { useRef } from "react";
-import SignIn from "../components/SignIn";
-import CompletedRequests from "../components/CompletedList";
-import UncompletedRequests from "../components/UncompletedRequestsList";
-import ProfilePicture from "../components/ProfilePicture";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+import SignIn from "./SignIn";
+import ActiveRequests from "../components/Profile/ActiveList";
+// import PendingRequests from "../components/PendingList";
+import CompletedRequests from "../components/Profile/CompletedList";
+import ProfilePicture from "../components/Profile/ProfilePicture";
 
 const ProfilePage = () => {
   const [user] = useAuthState();
@@ -14,13 +16,14 @@ const ProfilePage = () => {
   const completedRef = useRef(null);
   const location = useLocation();
 
-  const scrollToSection = (section) => {
-    if (section === "active" && activeRef.current) {
-      activeRef.current.scrollIntoView({ behavior: "smooth" });
-    } else if (section === "completed" && completedRef.current) {
-      completedRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // ****auto scroll logic for profile page, need to inplement
+  // const scrollToSection = (section) => {
+  //   if (section === "active" && activeRef.current) {
+  //     activeRef.current.scrollIntoView({ behavior: "smooth" });
+  //   } else if (section === "completed" && completedRef.current) {
+  //     completedRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
 
   return (
     <>
@@ -30,14 +33,14 @@ const ProfilePage = () => {
           <div>
             <div className="w-full flex items-center justify-between mt-4">
               {/* column for Profile Page and user picture */}
-              <div flex-row items-center>
+              <div className="flex flex-col items-start">
                 <h2
-                  className="text-2xl font-bold mb-4 text-left"
+                  className="text-2xl font-bold text-left"
                   style={{ fontFamily: "Lato, sans-serif" }}
                 >
                   Profile Page
                 </h2>
-                <div className="flex items-center gap-6 mt-6">
+                <div className="flex items-center gap-6 mt-4">
                   <ProfilePicture photoURL={user.photoURL} />
                   <div>
                     <p
@@ -68,7 +71,7 @@ const ProfilePage = () => {
 
           {/* Requests Sections */}
           <div className="mt-4 space-y-4">
-            {/* Active Requests */}
+            {/* Active */}
             <div
               ref={activeRef}
               className="bg-blue-50 flex-1 p-6 rounded-lg shadow-lg"
@@ -80,11 +83,11 @@ const ProfilePage = () => {
                 Active Requests
               </h2>
               <div className="grid grid-cols-1 gap-4">
-                <UncompletedRequests requests={[]} />
+                <ActiveRequests requests={[]} />
               </div>
             </div>
 
-            {/* Pending Requests */}
+            {/* Pending */}
             {/* <div ref={pendingRef} className="bg-yellow-50 flex-1 p-6 rounded-lg shadow-lg">
               <h2
                 className="text-xl font-bold mb-4"
@@ -93,11 +96,11 @@ const ProfilePage = () => {
                 Pending Requests
               </h2>
               <div className="grid grid-cols-1 gap-4">
-                <UncompletedRequests requests={[]} />
+                <ActiveRequests requests={[]} />
               </div>
             </div> */}
 
-            {/* Completed Requests */}
+            {/* Completed */}
             <div
               ref={completedRef}
               className="bg-green-50 flex-1 p-6 rounded-lg shadow-lg"
@@ -108,7 +111,7 @@ const ProfilePage = () => {
               >
                 Completed Requests
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <CompletedRequests requests={[]} />
               </div>
             </div>

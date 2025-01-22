@@ -1,9 +1,9 @@
-import { useAuthState } from "../utilities/firebase.js";
-import RequestTags from "./RequestTags.jsx";
+import { useAuthState } from "../../utilities/firebase.js";
+import RequestTags from "../RequestTags.jsx";
 import RequestModal from "./RequestModal.jsx";
-import ResolveRequest from "./ResolveRequest.jsx";
-import EditRequest from "./EditRequest.jsx";
-import DeleteRequest from "./DeleteRequest.jsx";
+import ResolveRequest from "../ResolveRequest.jsx";
+import EditRequest from "../EditRequest.jsx";
+import DeleteRequest from "../DeleteRequest.jsx";
 import { Stack, Group, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -20,7 +20,7 @@ const Request = ({ request }) => {
       >
         <Stack gap="sm" className="relative">
           <RequestTags request={request} />
-          <div className="flex flex-col justify-center items-center min-h-24 aspect-square p-2 border-2 rounded-lg absolute top-0 right-0 text-gray-500">
+          <div className="flex flex-col justify-center items-center min-h-20 aspect-square p-2 border-2 rounded-lg absolute top-0 right-0 text-gray-500">
             <Text fw={700}>Max</Text>
             <h2 className="text-2xl">${request.compensation}</h2>
           </div>

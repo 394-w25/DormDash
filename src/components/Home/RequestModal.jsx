@@ -1,5 +1,5 @@
 import { Button, Group, Text, Modal, Stack } from "@mantine/core";
-import RequestTags from "./RequestTags";
+import RequestTags from "../RequestTags";
 
 const RequestModal = ({ opened, onClose, request }) => {
   const emailSubject = `Inquiry about: ${request.title}`;
