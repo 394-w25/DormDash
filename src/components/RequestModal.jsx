@@ -43,7 +43,6 @@ const RequestModal = ({ opened, onClose, request }) => {
               )}
             </Group>
           </Stack>
-          <Modal.CloseButton className="[position:absolute_!important] right-5" />
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>
