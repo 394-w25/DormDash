@@ -1,10 +1,7 @@
 import "./App.css";
 import "@mantine/core/styles.css";
 
-import {
-  useAuthState,
-  signInWithGoogle,
-} from "./utilities/firebase";
+import { useAuthState, signInWithGoogle } from "./utilities/firebase";
 import { MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { BrowserRouter } from "react-router-dom";
