@@ -4,7 +4,6 @@ import "@mantine/core/styles.css";
 import {
   useAuthState,
   signInWithGoogle,
-  firebaseSignOut,
 } from "./utilities/firebase";
 import { MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
