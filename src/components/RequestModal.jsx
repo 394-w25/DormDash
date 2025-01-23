@@ -36,10 +36,6 @@ const RequestModal = ({ opened, onClose, request }) => {
               <Button onClick={onClose}>BACK</Button>
               {!request.isFulfilled && (
                 <Button
-                //   onClick={() => {
-                //     window.location.href = emailLink; // Redirect to mailto link explicitly
-                //   }}
-                // >
                   component="a" // Make the button behave like a link
                   href={emailLink}
                   target="_blank" // Open in a new tab
