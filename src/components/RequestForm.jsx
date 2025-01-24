@@ -22,6 +22,9 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     if (formData.get("compensation") < 0) {
       setCompensationErrorMsg("Compensation cannot be negative.");
       isValid = false;
+    } else if (formData.get("compensation") > 1000) {
+      setCompensationErrorMsg("Compensation cannot exceed $1000.");
+      isValid = false;
     } else setCompensationErrorMsg("");
     if (formData.get("tags").length === 0) {
       setTagErrorMsg("Please select at least one tag.");
