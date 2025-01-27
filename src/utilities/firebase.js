@@ -63,18 +63,6 @@ export const signInWithGoogle = async () => {
         email: user.email,
         photoURL: user.photoURL,
       });
-
-      // Create requests sub-table and add a test request
-      const requestsRef = ref(database, `users/${user.uid}/requests`);
-      set(requestsRef, {
-        testRequest: {
-          description: "This is a test request.",
-          title: "Test request",
-          location: "Northwestern",
-          compensation: 0,
-          timestamp: Date.now(),
-        },
-      });
     }
   } catch (error) {
     console.error("Error signing in with Google:", error);
