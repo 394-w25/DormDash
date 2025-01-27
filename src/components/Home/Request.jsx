@@ -4,6 +4,7 @@ import RequestModal from "./RequestModal.jsx";
 import ResolveRequest from "../ResolveRequest.jsx";
 import EditRequest from "../EditRequest.jsx";
 import DeleteRequest from "../DeleteRequest.jsx";
+import ProfilePicture from "../Profile/ProfilePicture.jsx";
 import { Stack, Group, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
