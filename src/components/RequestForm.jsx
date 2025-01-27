@@ -78,7 +78,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               placeholder="Request title"
               defaultValue={request?.title}
               required
-              error = {titleErrorMsg}
+              error={titleErrorMsg}
             />
             <TextInput
               label="Location"
