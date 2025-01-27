@@ -1,6 +1,6 @@
 import { describe } from "vitest";
 import { render, screen } from "./utils.jsx";
-import Request from "../components/Request";
+import Request from "../components/Home/Request";
 
 const request = {
   title: "Moving In",
