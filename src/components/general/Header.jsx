@@ -1,9 +1,7 @@
-import { IconSearch } from "@tabler/icons-react";
-import { Autocomplete, Burger, Group } from "@mantine/core";
+import { Link, useNavigate } from "react-router-dom";
+import { Burger, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Link } from "react-router-dom";
 import logo from "../../assets/icons/dormdash-logo.svg";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [opened, { toggle }] = useDisclosure(false);

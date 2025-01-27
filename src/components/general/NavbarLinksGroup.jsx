@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { IconChevronRight } from "@tabler/icons-react";
 import {
   Box,
@@ -8,7 +10,6 @@ import {
   ThemeIcon,
   UnstyledButton,
 } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
 
 export const LinksGroup = ({
   icon: Icon,
