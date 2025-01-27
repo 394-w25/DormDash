@@ -14,11 +14,19 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   const [user] = useAuthState();
   const [tagErrorMsg, setTagErrorMsg] = useState("");
   const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
+  const [titleErrorMsg, setTitleErrorMsg] = useState("");
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`); // path to current user's requests
   const TAGS = ["Buy", "Sell", "Borrow", "Other"];
 
   const validate = (formData) => {
     let isValid = true;
+    const title = formData.get("title");
+    if (title.length > 50) {
+      setTitleErrorMsg("Title cannot exceed 50 characters.");
+      isValid = false;
+    } else {
+      setTitleErrorMsg("");
+    }
     if (formData.get("compensation") < 0) {
       setCompensationErrorMsg("Compensation cannot be negative.");
       isValid = false;
@@ -70,6 +78,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               placeholder="Request title"
               defaultValue={request?.title}
               required
+              error = {titleErrorMsg}
             />
             <TextInput
               label="Location"
