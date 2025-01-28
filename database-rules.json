@@ -3,7 +3,14 @@
         "users": {
             ".read": "auth != null",
             "$user_id": {
-                ".write": "(auth != null) && ($user_id === auth.uid)"
+                ".write": "(auth != null) && ($user_id === auth.uid)",
+                "requests": {
+                    "$request_id": {
+                        "title": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 51" },
+                        "compensation": { ".validate": "newData.isString() && newData.val() > -1 && newData.val() < 1001" },
+                        "tags": { ".validate": "newData.isString() && newData.val().length > 0" }
+                    }
+                }
             }
         }
     }
