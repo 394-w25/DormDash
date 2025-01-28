@@ -58,7 +58,7 @@ export const signInWithGoogle = async () => {
 
       // Create or update user in the database
       const userRef = ref(database, `users/${user.uid}`);
-      set(userRef, {
+      update(userRef, {
         displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
