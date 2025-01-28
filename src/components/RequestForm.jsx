@@ -54,7 +54,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
         title: formData.get("title"),
         location: formData.get("location"),
         description: formData.get("description"),
-        compensation: formData.get("compensation"),
+        compensation: parseInt(formData.get("compensation")),
         tags: formData.get("tags"),
         timestamp: Date.now(),
       },
