@@ -3,11 +3,7 @@
         "users": {
             ".read": "auth != null",
             "$user_id": {
-                "requests": {
-                    "$request_id": {
-                        ".write": "(auth != null) && ($user_id === auth.uid)"
-                    }
-                }
+                ".write": "(auth != null) && ($user_id === auth.uid)"
             }
         }
     }
