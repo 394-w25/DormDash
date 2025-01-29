@@ -14,7 +14,12 @@ const Request = ({ request }) => {
 
   return (
     <>
-      <RequestModal opened={opened} onClose={close} request={request} />
+      <RequestModal
+        opened={opened}
+        onClose={close}
+        request={request}
+        user={user}
+      />
       <div
         onClick={open}
         className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200"
