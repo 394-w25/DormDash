@@ -2,6 +2,7 @@ import {
   Stack,
   TextInput,
   NumberInput,
+  MultiSelect,
   Checkbox,
   Button,
   Textarea,
@@ -44,9 +45,11 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const tags = TAGS.map((tag) => formData.get(tag)).filter(
-      (tag) => tag !== null,
-    );
+    // const tags = TAGS.map((tag) => formData.get(tag)).filter(
+    //   (tag) => tag !== null,
+    // );
+    const tags = formData.getAll("tags");
+
     formData.append("tags", tags);
     if (!validate(formData)) return;
     const requestData = {
@@ -67,66 +70,126 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-        <div className="grid grid-cols-3 gap-x-8">
-          <h1 className="text-lg font-semibold col-span-3">Request Details</h1>
-          <Stack className="col-span-2">
+    <div className="p-8">
+      <form onSubmit={handleSubmit}>
+        <h1 className="text-2xl font-bold mb-6">Create New Request</h1>
+        <div className="grid grid-cols-3 gap-x-8 gap-y-4">
+          {/* Row 1: Request Title */}
+          <div className="col-span-2">
             <TextInput
-              label="Title"
+              label="Request Title"
               name="title"
-              placeholder="Request title"
+              placeholder="Enter a descriptive title"
               defaultValue={request?.title}
               required
               error={titleErrorMsg}
+              description = "Max 50 characters"
+              classNames={{
+                input: "bg-gray-100",
+                label: "text-lg font-medium text-gray-800",
+                error: "text-red-500 mt-1",
+              }}
             />
+          </div>
+
+          {/* Tags Field */}
+          <div>
+          <MultiSelect
+            label="Tags"
+            name="tags"
+            placeholder="Tags"
+            data={TAGS.map((tag) => ({ value: tag, label: tag }))}
+            error={tagErrorMsg}
+            searchable
+            clearable
+            description="Select all that apply"
+            classNames={{
+              input: "bg-gray-100",
+              label: "text-lg font-medium text-gray-800",
+              error: "text-red-500 mt-1",
+            }}
+            dropdownPosition="bottom" 
+            withinPortal
+            nothingFound="No tags available"
+            styles={{
+              input: { width: "300px" }, 
+              dropdown: { width: "300px" }, 
+            }}
+          />
+
+          </div>
+
+          {/* Row 2: Deadline and Location */}
+          <div>
+            <TextInput
+              label="Deadline"
+              name="deadline"
+              placeholder="MM/DD/YYYY"
+              type="date"
+              required
+              classNames={{
+                input: "bg-gray-100",
+                label: "text-lg font-medium text-gray-800",
+              }}
+            />
+          </div>
+          <div>
             <TextInput
               label="Location"
               name="location"
-              placeholder="Location"
+              placeholder="e.g. Schapiro"
               defaultValue={request?.location}
               required
+              classNames={{
+                input: "bg-gray-100",
+                label: "text-lg font-medium text-gray-800",
+              }}
             />
+          </div>
+
+          {/* Row 3: Description */}
+          <div className="col-span-2">
             <Textarea
-              label="Body"
+              label="Description"
               name="description"
-              placeholder="Request description"
+              placeholder="Description"
               defaultValue={request?.description}
               autosize
-              maxRows={4}
               required
+              description = "Describe your request. Include any important information."
+              classNames={{
+                input: "bg-gray-100",
+                label: "text-lg font-medium text-gray-800",
+              }}
             />
+          </div>
+
+          {/* Row 4: Max Compensation */}
+          <div className="col-span-2">
             <NumberInput
-              label="Compensation"
+              label="Max Compensation"
               name="compensation"
-              placeholder="0"
+              placeholder="Amount"
               defaultValue={request?.compensation}
               error={compensationErrorMsg}
+              description = "Maximum amount of payment for request fulfillment"
+              classNames={{
+                input: "bg-gray-100",
+                label: "text-lg font-medium text-gray-800",
+                error: "text-red-500 mt-1",
+              }}
             />
-          </Stack>
-          <Stack align="end">
-            <Checkbox.Group
-              label="Tags (select at least one)"
-              error={tagErrorMsg}
-              classNames={{ error: "[margin-top:_1rem_!important]" }}
-            ></Checkbox.Group>
-            <Stack justify="start" className="w-full">
-              {TAGS.map((tag, idx) => (
-                <Checkbox
-                  key={idx}
-                  name={tag}
-                  value={tag}
-                  label={tag}
-                  defaultChecked={request?.tags.includes(tag)}
-                  className="mt-2"
-                />
-              ))}
-            </Stack>
-          </Stack>
+          </div>
         </div>
-        <div className="sm:w-1/4 mx-auto">
-          <Button type="submit" size="md" fullWidth={true}>
-            {request ? "Update" : "Post"}
+
+        {/* Submit Button */}
+        <div className="fixed bottom-10 right-10">
+          <Button
+            type="submit"
+            size="lg"
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            {request ? "Update" : "Post New Request"}
           </Button>
         </div>
       </form>
