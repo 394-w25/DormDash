@@ -18,7 +18,7 @@ const Request = ({ request }) => {
         opened={opened}
         onClose={close}
         request={request}
-        user={user}
+        user={user ? user : { displayName: "Guest" }}
       />
       <div
         onClick={open}
