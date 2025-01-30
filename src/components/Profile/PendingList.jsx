@@ -1,6 +1,6 @@
-import { useDbData, useAuthState } from "../utilities/firebase.js";
+import { useDbData, useAuthState } from "../../utilities/firebase.js";
 import React from "react";
-import Request from "./Request.jsx";
+import Request from "../Request.jsx";
 
 function UncompletedRequestsList({ requests }) {
   const [data, error] = useDbData("/");
@@ -10,11 +10,11 @@ function UncompletedRequestsList({ requests }) {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
-  // Filter requests to only show the current user's requests
+  // filter for current user's requests
   const myUncompletedRequests =
     data.users && user
       ? Object.entries(data.users)
-          .filter(([userId]) => userId === user.uid) // Only get current user's data
+          .filter(([userId]) => userId === user.uid) // current user's data
           .flatMap(([userId, userData]) =>
             Object.entries(userData.requests || {})
               // pending
@@ -35,12 +35,7 @@ function UncompletedRequestsList({ requests }) {
       {myUncompletedRequests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {myUncompletedRequests.map((request) => (
-            <div
-              key={`${request.userId}-${request.requestId}`}
-              className="bg-gray-50 p-4 shadow-md rounded-md"
-            >
-              <Request request={request} />
-            </div>
+            <Request key={request.requestId} request={request} />
           ))}
         </div>
       ) : (

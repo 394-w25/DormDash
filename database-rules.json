@@ -1,0 +1,18 @@
+{
+    "rules": {
+        ".read": "auth != null",
+        "users": {
+            "$user_id": {
+                ".write": "(auth != null) && ($user_id === auth.uid)",
+                "requests": {
+                    "$request_id": {
+                        "title": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 51" },
+                        "description": { ".validate": "newData.isString() && newData.val().length > -1 && newData.val().length < 1001" },
+                        "compensation": { ".validate": "newData.isNumber() && newData.val() > -1 && newData.val() < 1001" },
+                        "tags": { ".validate": "newData.isString() && newData.val().length > 0" }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
-import { useDbData, useAuthState } from "../utilities/firebase.js";
+import { useDbData, useAuthState } from "../../utilities/firebase.js";
 import React from "react";
-import Request from "./Request.jsx";
-import { getRequests } from "../utilities/request.js";
+import Request from "../Request.jsx";
+import { getRequests } from "../../utilities/request.js";
 
 function ActiveRequests() {
   const [data, error] = useDbData("/");

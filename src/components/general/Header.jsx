@@ -1,5 +1,4 @@
-import { IconSearch } from "@tabler/icons-react";
-import { Autocomplete, Burger, Group } from "@mantine/core";
+import { Burger, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/dormdash-logo.svg";

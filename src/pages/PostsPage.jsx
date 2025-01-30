@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthState } from "../utilities/firebase";
-import SignIn from "../components/SignIn.jsx";
-import Posts from "../components/Posts.jsx";
+import SignIn from "./SignIn.jsx";
+import Posts from "../components/Home/Posts.jsx";
 import FilterSortBar from "../components/Home/FilterSortBar.jsx";
 
 const PostsPage = () => {
