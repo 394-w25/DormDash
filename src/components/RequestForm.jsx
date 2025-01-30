@@ -9,14 +9,16 @@ import {
 } from "@mantine/core";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // if request is provided, assumes form is in edit state
 const RequestForm = ({ redirectPath, request, callback }) => {
+  const navigate = useNavigate();
   const [user] = useAuthState();
   const [tagErrorMsg, setTagErrorMsg] = useState("");
   const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
   const [titleErrorMsg, setTitleErrorMsg] = useState("");
-  const [updateData] = useDbUpdate(`users/${user?.uid}/requests`); // path to current user's requests
+  const [updateData] = useDbUpdate(`users/${user?.uid}/requests`);
   const TAGS = ["Buy", "Sell", "Borrow", "Other"];
 
   const validate = (formData) => {
@@ -176,6 +178,17 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               }}
             />
           </div>
+        </div>
+
+        <div className="fixed bottom-10 left-100 ">
+          <Button
+            variant="outline" 
+            size="lg"
+            onClick={() => navigate("/posts")} // Navigate to /posts when clicked
+            className="text-gray-800 border-gray-500 hover:text-gray-900 hover:border-gray-700"
+          >
+            Back
+          </Button>
         </div>
 
         <div className="fixed bottom-10 right-10">
