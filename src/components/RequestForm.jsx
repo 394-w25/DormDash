@@ -182,7 +182,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
 
         <div className="fixed bottom-10 left-100 ">
           <Button
-            variant="outline" 
+            variant="outline"
             size="lg"
             onClick={() => navigate("/posts")} // Navigate to /posts when clicked
             className="text-gray-800 border-gray-500 hover:text-gray-900 hover:border-gray-700"
