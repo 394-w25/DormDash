@@ -83,7 +83,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               defaultValue={request?.title}
               required
               error={titleErrorMsg}
-              description = "Max 50 characters"
+              description="Max 50 characters"
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
@@ -92,34 +92,31 @@ const RequestForm = ({ redirectPath, request, callback }) => {
             />
           </div>
 
-          {/* Tags Field */}
           <div>
-          <MultiSelect
-            label="Tags"
-            name="tags"
-            placeholder="Tags"
-            data={TAGS.map((tag) => ({ value: tag, label: tag }))}
-            error={tagErrorMsg}
-            searchable
-            clearable
-            description="Select all that apply"
-            classNames={{
-              input: "bg-gray-100",
-              label: "text-lg font-medium text-gray-800",
-              error: "text-red-500 mt-1",
-            }}
-            dropdownPosition="bottom" 
-            withinPortal
-            nothingFound="No tags available"
-            styles={{
-              input: { width: "300px" }, 
-              dropdown: { width: "300px" }, 
-            }}
-          />
-
+            <MultiSelect
+              label="Tags"
+              name="tags"
+              placeholder="Tags"
+              data={TAGS.map((tag) => ({ value: tag, label: tag }))}
+              error={tagErrorMsg}
+              searchable
+              clearable
+              description="Select all that apply"
+              classNames={{
+                input: "bg-gray-100",
+                label: "text-lg font-medium text-gray-800",
+                error: "text-red-500 mt-1",
+              }}
+              dropdownPosition="bottom"
+              withinPortal
+              nothingFound="No tags available"
+              styles={{
+                input: { width: "300px" },
+                dropdown: { width: "300px" },
+              }}
+            />
           </div>
 
-          {/* Row 2: Deadline and Location */}
           <div>
             <TextInput
               label="Deadline"
@@ -147,7 +144,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
             />
           </div>
 
-          {/* Row 3: Description */}
           <div className="col-span-2">
             <Textarea
               label="Description"
@@ -156,7 +152,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               defaultValue={request?.description}
               autosize
               required
-              description = "Describe your request. Include any important information."
+              description="Describe your request. Include any important information."
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
@@ -164,7 +160,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
             />
           </div>
 
-          {/* Row 4: Max Compensation */}
           <div className="col-span-2">
             <NumberInput
               label="Max Compensation"
@@ -172,7 +167,8 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               placeholder="Amount"
               defaultValue={request?.compensation}
               error={compensationErrorMsg}
-              description = "Maximum amount of payment for request fulfillment"
+              description="Maximum amount of payment for request fulfillment"
+              min={0}
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
@@ -182,7 +178,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
           </div>
         </div>
 
-        {/* Submit Button */}
         <div className="fixed bottom-10 right-10">
           <Button
             type="submit"
