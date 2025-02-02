@@ -23,7 +23,7 @@ const Header = () => {
         </Group>
 
         {/* Conditionally render the button only on the /posts route */}
-        {location.pathname === "/posts" && (
+        {location.pathname === "/posts" || "/" && (
           <button
             onClick={() => navigate("/post")}
             className="px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"

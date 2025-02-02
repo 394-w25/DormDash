@@ -111,6 +111,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               }}
               dropdownPosition="bottom"
               withinPortal
+              required
               nothingFound="No tags available"
               styles={{
                 input: { width: "300px" },
@@ -171,6 +172,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               error={compensationErrorMsg}
               description="Maximum amount of payment for request fulfillment"
               min={0}
+              required
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
