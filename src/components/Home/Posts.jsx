@@ -28,10 +28,12 @@ const Posts = ({
     const matchesCompensation =
       request.compensation >= minCompensation &&
       (maxCompensation === "" || request.compensation <= maxCompensation);
-    // then filter through title and desciption if user used search
+    // then filter through title/desciption/user/location if user used search
     const matchesSearch =
       request.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.description.toLowerCase().includes(searchQuery.toLowerCase());
+      request.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      request.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      request.location.toLowerCase().includes(searchQuery.toLowerCase());
     return (
       matchesTags &&
       matchesCompensation &&
