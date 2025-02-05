@@ -26,7 +26,7 @@ const Request = ({ request }) => {
       >
         <Stack gap="sm" className="relative h-full">
           <RequestTags request={request} />
-          <div className="flex flex-col justify-center items-center min-h-20 aspect-square p-2 border-2 rounded-lg absolute top-0 right-0 text-gray-500">
+          <div className="invisible sm:visible flex flex-col justify-center items-center min-h-20 aspect-square p-2 border-2 rounded-lg absolute top-0 right-0 text-gray-500">
             <Text fw={700}>Max</Text>
             <h2 className="text-2xl">${request.compensation}</h2>
           </div>
@@ -39,7 +39,7 @@ const Request = ({ request }) => {
               <DeleteRequest request={request} />
             </Group>
           )}
-          <div className="mt-auto">
+          <div className="hidden sm:block mt-auto">
             <hr className="my-4 w-3/4" />
             <Group className="h-16">
               <ProfilePicture photoURL={request.photoURL} />

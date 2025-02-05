@@ -50,7 +50,7 @@ const ProfilePage = () => {
                       {user.displayName}
                     </p>
                     <p
-                      className="text-sm text-gray-500"
+                      className="hidden sm:block text-sm text-gray-500"
                       style={{ fontFamily: "Lato, sans-serif" }}
                     >
                       {user.email}
@@ -61,7 +61,7 @@ const ProfilePage = () => {
 
               <button
                 onClick={firebaseSignOut}
-                className="absolute top-16 absolute right-4 px-6 py-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
+                className="absolute top-4 right-4 px-6 py-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
                 style={{ fontFamily: "Lato, sans-serif" }}
               >
                 Sign Out
