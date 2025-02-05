@@ -72,9 +72,10 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   return (
     <div className="p-8">
       <form onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold mb-6">Create New Request</h1>
-        <div className="grid grid-cols-3 gap-x-8 gap-y-4">
-          {/* Row 1: Request Title */}
+        <h1 className="text-2xl font-bold mb-6">
+          {request ? "Edit Request" : "Create New Request"}
+        </h1>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
           <div className="col-span-2">
             <TextInput
               label="Request Title"
@@ -83,7 +84,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               defaultValue={request?.title}
               required
               error={titleErrorMsg}
-              description="Max 50 characters"
+              description="Max 50 characters."
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
@@ -92,7 +93,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
             />
           </div>
 
-          <div>
+          <div className="col-span-2">
             <MultiSelect
               label="Tags"
               name="tags"
@@ -111,10 +112,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               withinPortal
               required
               nothingFound="No tags available"
-              styles={{
-                input: { width: "300px" },
-                dropdown: { width: "300px" },
-              }}
             />
           </div>
 
@@ -131,6 +128,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               }}
             />
           </div>
+
           <div>
             <TextInput
               label="Location"
@@ -178,15 +176,16 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               }}
             />
           </div>
-        </div>
-        <div className="fixed bottom-10 right-10">
-          <Button
-            type="submit"
-            size="lg"
-            className="bg-green-600 hover:bg-green-700 text-white"
-          >
-            {request ? "Update" : "Post New Request"}
-          </Button>
+          <div className="col-span-2 px-20">
+            <Button
+              type="submit"
+              size="lg"
+              fullWidth={true}
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              {request ? "Update" : "Post New Request"}
+            </Button>
+          </div>
         </div>
       </form>
     </div>
