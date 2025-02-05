@@ -19,7 +19,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
   const [titleErrorMsg, setTitleErrorMsg] = useState("");
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`);
-  const TAGS = ["Buy", "Sell", "Borrow", "Other"];
+  const TAGS = ["Buy", "Sell", "Borrow", "Transportation", "Cleaning", "Other"];
 
   const validate = (formData) => {
     let isValid = true;
