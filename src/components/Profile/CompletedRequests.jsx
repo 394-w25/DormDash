@@ -1,6 +1,6 @@
 import { useAuthState, useDbData } from "../../utilities/firebase.js";
 import React from "react";
-import Request from "../Request.jsx";
+import Request from "../../components/Home/Request.jsx";
 import { getRequests } from "../../utilities/request.js";
 
 function CompletedRequests() {
