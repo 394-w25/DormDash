@@ -52,7 +52,7 @@ const FilterSortBar = ({
       <MultiSelect
         label="Tags"
         placeholder="Select tags"
-        data={["Buy", "Sell", "Borrow", "Other"]}
+        data={["Buy", "Sell", "Borrow", "Transportation", "Cleaning", "Other"]}
         value={selectedTags}
         onChange={setSelectedTags}
         clearable
