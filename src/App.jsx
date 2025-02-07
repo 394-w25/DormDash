@@ -3,6 +3,7 @@ import "@mantine/core/styles.css";
 
 import { useAuthState, signInWithGoogle } from "./utilities/firebase";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/general/Header";
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <MantineProvider>
+      <Notifications />
       <ModalsProvider>
         <BrowserRouter>
           {user ? (
