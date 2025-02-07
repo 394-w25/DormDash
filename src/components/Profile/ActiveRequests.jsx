@@ -20,7 +20,10 @@ function ActiveRequests() {
       {activeRequests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {activeRequests.map((request) => (
-            <Request request={request} />
+            <Request
+              key={`${request.userId}=${request.requestId}`}
+              request={request}
+            />
           ))}
         </div>
       ) : (
