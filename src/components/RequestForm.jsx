@@ -45,11 +45,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    // const tags = TAGS.map((tag) => formData.get(tag)).filter(
-    //   (tag) => tag !== null,
-    // );
     const tags = formData.getAll("tags");
-
     formData.append("tags", tags);
     if (!validate(formData)) return;
     const requestData = {
@@ -99,6 +95,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               name="tags"
               placeholder="Tags"
               data={TAGS.map((tag) => ({ value: tag, label: tag }))}
+              defaultValue={request?.tags}
               error={tagErrorMsg}
               searchable
               clearable
