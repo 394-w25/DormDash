@@ -1,5 +1,6 @@
 import "./App.css";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 
 import { useAuthState, signInWithGoogle } from "./utilities/firebase";
 import { MantineProvider } from "@mantine/core";
