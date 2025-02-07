@@ -1,9 +1,7 @@
 import {
-  Stack,
   TextInput,
   NumberInput,
   MultiSelect,
-  Checkbox,
   Button,
   Textarea,
 } from "@mantine/core";
