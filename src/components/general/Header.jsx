@@ -21,8 +21,8 @@ const Header = () => {
             DormDash
           </Link>
         </Group>
-        {/* Only render new post button on /posts route */}
-        {location.pathname === "/posts" && (
+        {/* Only render new post button on "/posts" or "/" route */}
+        {(location.pathname === "/posts" || location.pathname === "/") && (
           <button
             onClick={() => navigate("/post")}
             className="px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"
