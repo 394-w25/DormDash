@@ -3,7 +3,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/dormdash-logo.svg";
 
-
 // const Header = () => {
 //   const [opened, { toggle }] = useDisclosure(false);
 //   const navigate = useNavigate();
@@ -22,7 +21,6 @@ import logo from "../../assets/icons/dormdash-logo.svg";
 //             DormDash
 //           </Link>
 //         </Group>
-
 
 //         {(location.pathname === "/posts" || location.pathname === "/") && (
 //           <button
@@ -58,13 +56,13 @@ const Header = () => {
 
         {/* Conditionally render the button only on the /posts route */}
         {(location.pathname === "/posts" || location.pathname === "/") && (
-            <button
-              onClick={() => navigate("/post")}
-              className="px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"
-            >
-              Post New Request
-            </button>
-          )}
+          <button
+            onClick={() => navigate("/post")}
+            className="px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"
+          >
+            Post New Request
+          </button>
+        )}
       </div>
     </header>
   );
