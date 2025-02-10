@@ -3,10 +3,12 @@ import {
   NumberInput,
   MultiSelect,
   Button,
+  FileInput,
   Textarea,
 } from "@mantine/core";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
 import { useState } from "react";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // if request is provided, assumes form is in edit state
 const RequestForm = ({ redirectPath, request, callback }) => {
@@ -14,6 +16,8 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   const [tagErrorMsg, setTagErrorMsg] = useState("");
   const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
   const [titleErrorMsg, setTitleErrorMsg] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`);
   const TAGS = ["Buy", "Sell", "Borrow", "Transportation", "Cleaning", "Other"];
 
@@ -40,12 +44,32 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (file) => {
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const tags = formData.getAll("tags");
     formData.append("tags", tags);
     if (!validate(formData)) return;
+
+    let imageUrl = request?.imageUrl || "";
+    const requestId = request ? request.requestId : `request_${Date.now()}`;
+    if (image) {
+      const storage = getStorage();
+      const imageRef = ref(
+        storage,
+        `requests/${user.uid}/${requestId}/${image.name}`,
+      );
+      await uploadBytes(imageRef, image);
+      imageUrl = await getDownloadURL(imageRef);
+    }
+
     const requestData = {
       [request ? request.requestId : `request_${Date.now()}`]: {
         title: formData.get("title"),
@@ -54,6 +78,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
         compensation: parseInt(formData.get("compensation")),
         tags: formData.get("tags"),
         timestamp: Date.now(),
+        imageUrl,
       },
     };
     updateData(requestData);
@@ -88,6 +113,22 @@ const RequestForm = ({ redirectPath, request, callback }) => {
           </div>
 
           <div className="col-span-2">
+            <FileInput
+              accept="image/png,image/jpeg"
+              label="Upload Image"
+              placeholder="Upload Image"
+              onChange={handleImageChange}
+            />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-4 w-32 h-32 object-cover rounded-lg"
+              />
+            )}
+          </div>
+
+          <div className="col-span-2">
             <MultiSelect
               label="Tags"
               name="tags"
@@ -117,6 +158,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               placeholder="MM/DD/YYYY"
               type="date"
               required
+              min={new Date().toISOString().split("T")[0]}
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
