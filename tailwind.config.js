@@ -22,6 +22,8 @@ export default {
       },
       fontSize: {
         sm: 'var(--mantine-font-size-sm)',
+        lg: 'var(--mantine-font-size-lg)',
+
       },
     },
   },

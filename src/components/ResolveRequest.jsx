@@ -3,7 +3,12 @@ import { useDbUpdate } from "../utilities/firebase.js";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 
-const ResolveRequest = ({ request }) => {
+const ResolveRequest = ({
+  request,
+  size = "compact",
+  variant = "filled",
+  className,
+}) => {
   const [updateData] = useDbUpdate(
     `users/${request?.userId}/requests/${request?.requestId}`,
   );
@@ -29,7 +34,12 @@ const ResolveRequest = ({ request }) => {
     notifySuccess(title, message);
   };
   return (
-    <Button onClick={handleClick}>
+    <Button
+      onClick={handleClick}
+      size={size}
+      variant={variant}
+      className={`!px-2 !py-1 !text-sm ${className}`}
+    >
       {request.isFulfilled ? "REOPEN" : "RESOLVE"}
     </Button>
   );
