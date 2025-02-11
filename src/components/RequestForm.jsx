@@ -23,7 +23,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     return new Date(
       date.toLocaleString("en-US", {
         timeZone: "America/Chicago",
-      })
+      }),
     );
   };
 
@@ -74,11 +74,14 @@ const RequestForm = ({ redirectPath, request, callback }) => {
       if (deadlineDate === todayDate) {
         setDeadlineDateErrorMsg("");
         setDeadlineTimeErrorMsg(
-          `Deadline must be in the future (current time: ${now.toLocaleTimeString("en-US", {
-            timeZone: "America/Chicago",
-            hour: "2-digit",
-            minute: "2-digit",
-          })} Central)`
+          `Deadline must be in the future (current time: ${now.toLocaleTimeString(
+            "en-US",
+            {
+              timeZone: "America/Chicago",
+              hour: "2-digit",
+              minute: "2-digit",
+            },
+          )} Central)`,
         );
       } else {
         setDeadlineDateErrorMsg("Deadline must be in the future.");
@@ -124,25 +127,31 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     if (callback) callback();
   };
 
-
   // Get current date and time in Central timezone
   const now = new Date();
   const centralNow = convertToCentralTime(now);
-  const minDate = [centralNow.getFullYear(), centralNow.getMonth(), centralNow.getDate()].join("-");
+  const minDate = [
+    centralNow.getFullYear(),
+    centralNow.getMonth(),
+    centralNow.getDate(),
+  ].join("-");
 
   let defaultDate;
   if (request?.deadline) {
     const fetchedDeadline = new Date(request.deadline);
-    defaultDate = convertToCentralTime(fetchedDeadline).toLocaleDateString("sv-SE");
+    defaultDate =
+      convertToCentralTime(fetchedDeadline).toLocaleDateString("sv-SE");
   } else {
     defaultDate = minDate;
   }
 
   let defaultTime;
   if (request?.deadline) {
-    const fetchedDeadline= convertToCentralTime(new Date(request.deadline));
-    defaultTime = [fetchedDeadline.getHours().toString().padStart(2, "0"),
-                   fetchedDeadline.getMinutes().toString().padStart(2, "0")].join(":");
+    const fetchedDeadline = convertToCentralTime(new Date(request.deadline));
+    defaultTime = [
+      fetchedDeadline.getHours().toString().padStart(2, "0"),
+      fetchedDeadline.getMinutes().toString().padStart(2, "0"),
+    ].join(":");
   } else {
     defaultTime = "23:59";
   }
