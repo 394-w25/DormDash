@@ -28,6 +28,12 @@ const RequestModal = ({ opened, onClose, request, user }) => {
               <Text>
                 Posted on: {new Date(request.timestamp).toLocaleString()}
               </Text>
+              <Text>
+                Deadline:{" "}
+                {request.deadline
+                  ? new Date(request.deadline).toLocaleString()
+                  : "N/A"}
+              </Text>
               <Text>Location: {request.location}</Text>
             </div>
             <Text>{request.description}</Text>

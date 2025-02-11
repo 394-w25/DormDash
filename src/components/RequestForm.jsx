@@ -54,6 +54,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
         compensation: parseInt(formData.get("compensation")),
         tags: formData.get("tags"),
         timestamp: Date.now(),
+        deadline: formData.get("deadline"),
       },
     };
     updateData(requestData);
