@@ -24,6 +24,8 @@ const FilterSortBar = ({
   setSortField,
   sortOrder,
   setSortOrder,
+  hideExpired,
+  setHideExpired,
 }) => {
   //   const [data, error] = useDbData("/");
 
@@ -78,6 +80,16 @@ const FilterSortBar = ({
         onChange={(value) => setMaxCompensation(value || Infinity)}
         min={0}
         mb="md"
+      />
+
+      {/* Switch for Hiding Requests Past Deadline */}
+      <Switch
+        label="Hide expired requests"
+        checked={hideExpired}
+        onChange={(event) => setHideExpired(event.currentTarget.checked)}
+        mb="md"
+        size="md"
+        color="dark.4"
       />
 
       <p className="font-lato font-bold">Sort Requests</p>
