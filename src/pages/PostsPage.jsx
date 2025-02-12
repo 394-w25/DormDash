@@ -21,7 +21,7 @@ const PostsPage = () => {
   const [sortOrder, setSortOrder] = useState("desc"); // default order
 
   return (
-    <div className="mx-4">
+    <div className="mb-16">
       {user ? (
         <div className="flex flex-row flex-1">
           <Posts

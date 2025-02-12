@@ -6,15 +6,17 @@ import SignIn from "./SignIn";
 import ActiveRequests from "../components/Profile/ActiveRequests";
 import CompletedRequests from "../components/Profile/CompletedRequests";
 import ProfilePicture from "../components/Profile/ProfilePicture";
+import ExpiredRequests from "../components/Profile/ExpiredRequests.jsx";
 
 const ProfilePage = () => {
   const [user] = useAuthState();
 
   const activeRef = useRef(null);
+  const expiredRef = useRef(null);
   const completedRef = useRef(null);
 
   return (
-    <>
+    <div>
       {user ? (
         <div className="mx-4 flex-1 max-h-screen max-w-screen">
           {/* Profile Section */}
@@ -38,7 +40,7 @@ const ProfilePage = () => {
                       {user.displayName}
                     </p>
                     <p
-                      className="text-sm text-gray-500"
+                      className="hidden sm:block text-sm text-gray-500"
                       style={{ fontFamily: "Lato, sans-serif" }}
                     >
                       {user.email}
@@ -49,7 +51,7 @@ const ProfilePage = () => {
 
               <button
                 onClick={firebaseSignOut}
-                className="absolute top-16 absolute right-4 px-6 py-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
+                className="absolute top-4 right-4 px-6 py-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
                 style={{ fontFamily: "Lato, sans-serif" }}
               >
                 Sign Out
@@ -69,10 +71,24 @@ const ProfilePage = () => {
               >
                 Active Requests
               </h2>
-              <div className="grid grid-cols-1 gap-4">
-                <ActiveRequests requests={[]} />
-              </div>
+              <ActiveRequests requests={[]} />
             </div>
+
+            {/* Pending */}
+            {
+              <div
+                ref={expiredRef}
+                className="bg-yellow-50 flex-1 p-6 rounded-lg shadow-lg"
+              >
+                <h2
+                  className="text-xl font-bold mb-4"
+                  style={{ fontFamily: "Lato, sans-serif" }}
+                >
+                  Expired Requests
+                </h2>
+                <ExpiredRequests requests={[]} />
+              </div>
+            }
 
             {/* Completed */}
             <div
@@ -85,16 +101,14 @@ const ProfilePage = () => {
               >
                 Completed Requests
               </h2>
-              <div className="grid grid-cols-1 gap-4">
-                <CompletedRequests requests={[]} />
-              </div>
+              <CompletedRequests requests={[]} />
             </div>
           </div>
         </div>
       ) : (
         <SignIn />
       )}
-    </>
+    </div>
   );
 };
 

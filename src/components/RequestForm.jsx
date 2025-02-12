@@ -3,10 +3,12 @@ import {
   NumberInput,
   MultiSelect,
   Button,
+  FileInput,
   Textarea,
 } from "@mantine/core";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
 import { useState } from "react";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const RequestForm = ({ redirectPath, request, callback }) => {
   const [user] = useAuthState();
@@ -15,10 +17,12 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   const [titleErrorMsg, setTitleErrorMsg] = useState("");
   const [deadlineDateErrorMsg, setDeadlineDateErrorMsg] = useState("");
   const [deadlineTimeErrorMsg, setDeadlineTimeErrorMsg] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`);
   const TAGS = ["Buy", "Sell", "Borrow", "Transportation", "Cleaning", "Other"];
 
-  // convert any date to Central time
+  // convert any date to Central time. Helper function because time got convoluted
   const convertToCentralTime = (date) => {
     return new Date(
       date.toLocaleString("en-US", {
@@ -38,6 +42,8 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     } else {
       setTitleErrorMsg("");
     }
+
+    // Compensation validation
 
     // Compensation validation
     if (formData.get("compensation") < 0) {
@@ -93,10 +99,41 @@ const RequestForm = ({ redirectPath, request, callback }) => {
       setDeadlineTimeErrorMsg("");
     }
 
+    // Compare dates
+    if (deadlineInCentral <= nowInCentral) {
+      if (deadlineDate === todayDate) {
+        setDeadlineDateErrorMsg("");
+        setDeadlineTimeErrorMsg(
+          `Deadline must be in the future (current time: ${now.toLocaleTimeString(
+            "en-US",
+            {
+              timeZone: "America/Chicago",
+              hour: "2-digit",
+              minute: "2-digit",
+            },
+          )} Central)`,
+        );
+      } else {
+        setDeadlineDateErrorMsg("Deadline must be in the future.");
+        setDeadlineTimeErrorMsg("");
+      }
+      isValid = false;
+    } else {
+      setDeadlineDateErrorMsg("");
+      setDeadlineTimeErrorMsg("");
+    }
+
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (file) => {
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const tags = formData.getAll("tags");
@@ -109,6 +146,18 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     const centralTime = new Date(`${deadlineDate}T${deadlineTime}:00-06:00`); // CST (Winter: UTC-6)
     const deadlineTimestamp = centralTime.getTime();
 
+    let imageUrl = request?.imageUrl || "";
+    const requestId = request ? request.requestId : `request_${Date.now()}`;
+    if (image) {
+      const storage = getStorage();
+      const imageRef = ref(
+        storage,
+        `requests/${user.uid}/${requestId}/${image.name}`,
+      );
+      await uploadBytes(imageRef, image);
+      imageUrl = await getDownloadURL(imageRef);
+    }
+
     const requestData = {
       [request ? request.requestId : `request_${Date.now()}`]: {
         title: formData.get("title"),
@@ -118,6 +167,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
         tags: formData.get("tags"),
         timestamp: Date.now(),
         deadline: deadlineTimestamp,
+        imageUrl,
       },
     };
     updateData(requestData);
@@ -181,6 +231,22 @@ const RequestForm = ({ redirectPath, request, callback }) => {
           </div>
 
           <div className="col-span-2">
+            <FileInput
+              accept="image/png,image/jpeg"
+              label="Upload Image"
+              placeholder="Upload Image"
+              onChange={handleImageChange}
+            />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-4 w-32 h-32 object-cover rounded-lg"
+              />
+            )}
+          </div>
+
+          <div className="col-span-2">
             <MultiSelect
               label="Tags"
               name="tags"
@@ -227,9 +293,9 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               name="deadlineTime"
               type="time"
               defaultValue={defaultTime || "23:59"}
-              min={undefined}
               error={deadlineTimeErrorMsg}
               required
+              min={new Date().toISOString().split("T")[0]}
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",

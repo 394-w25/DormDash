@@ -27,7 +27,7 @@ const FilterSortBar = ({
   return (
     <>
       <div
-        className={`hidden lg:flex p-4 ml-4 border-l border-gray-300 w-60 min-w-60 h-window flex-col`}
+        className={`hidden lg:flex p-4 border-l border-gray-300 w-60 min-w-60 h-window flex-col`}
       >
         <Autocomplete
           className=""
@@ -123,7 +123,7 @@ const FilterSortBar = ({
 
       {/* version for small screens */}
       <div
-        className={`fixed top-0 right-0 h-full w-60 bg-white shadow-lg border-l border-gray-300 p-4 flex-col transform transition-transform duration-300 md:hidden ${
+        className={`fixed z-50 top-0 right-0 h-full w-60 bg-white shadow-lg border-l border-gray-300 p-4 flex-col transform transition-transform duration-300 md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

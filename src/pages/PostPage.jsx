@@ -17,7 +17,7 @@ function PostPage() {
     });
   const [user] = useAuthState();
   return (
-    <>
+    <div className="mb-16">
       {user ? (
         <RequestForm
           callback={() => {
@@ -28,7 +28,7 @@ function PostPage() {
       ) : (
         <SignIn />
       )}
-    </>
+    </div>
   );
 }
 

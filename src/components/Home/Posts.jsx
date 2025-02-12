@@ -40,8 +40,7 @@ const Posts = ({
 
     // then filter out expired postings if user selected the option
     const currentTime = Date.now();
-    const notExpired =
-      !hideExpired || !request.deadline || request.deadline > currentTime;
+    const notExpired = !request.deadline || request.deadline > currentTime;
 
     return (
       matchesTags &&
@@ -63,7 +62,7 @@ const Posts = ({
   const allTags = [...new Set(allRequests.flatMap((request) => request.tags))];
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 mx-4">
       <div className="flex flex-row justify-between items-center">
         <h1 className="font-lato text-start text-2xl font-bold py-4">Home</h1>
         <Burger
@@ -72,7 +71,7 @@ const Posts = ({
           className="flex lg:hidden items-center justify-center"
         />
       </div>
-      <section className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {sortedRequests.map((request, idx) => (
           <Request key={idx} request={request} />
         ))}

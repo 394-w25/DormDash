@@ -3,7 +3,7 @@ import React from "react";
 import Request from "../../components/Home/Request.jsx";
 import { getRequests } from "../../utilities/request.js";
 
-function CompletedRequests() {
+function ExpiredRequests() {
   const [user] = useAuthState();
   const [data, error] = useDbData("/");
 
@@ -11,12 +11,14 @@ function CompletedRequests() {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
+  const now = new Date();
+
   const completedRequests = getRequests(data, {
     userFilter: (userId) => userId === user.uid,
-    requestFilter: (request) => request.isFulfilled,
+    requestFilter: (request) => request.deadline < now && !request.isFulfilled,
   });
   return (
-    <div className="mb-16">
+    <>
       {completedRequests.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {completedRequests.map((request) => (
@@ -28,11 +30,11 @@ function CompletedRequests() {
         </div>
       ) : (
         <p className="text-gray-500 text-start">
-          You have no completed requests.
+          You have no expired requests.
         </p>
       )}
-    </div>
+    </>
   );
 }
 
-export default CompletedRequests;
+export default ExpiredRequests;

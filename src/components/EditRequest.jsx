@@ -4,7 +4,12 @@ import RequestForm from "./RequestForm";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 
-const EditRequest = ({ request }) => {
+const EditRequest = ({
+  request,
+  size = "compact",
+  variant = "filled",
+  className,
+}) => {
   const [opened, { open, close }] = useDisclosure(false);
   const handleClick = (e) => {
     e.stopPropagation();
@@ -36,7 +41,14 @@ const EditRequest = ({ request }) => {
           </Modal.Body>
         </Modal.Content>
       </Modal.Root>
-      <Button onClick={handleClick}>EDIT</Button>
+      <Button
+        onClick={handleClick}
+        size={size}
+        variant={variant}
+        className={`!px-2 !py-1 !text-sm ${className}`}
+      >
+        EDIT
+      </Button>
     </>
   );
 };
