@@ -20,8 +20,7 @@ const Header = () => {
             DormDash
           </Link>
         </Group>
-
-        {/* Conditionally render the button only on the /posts route */}
+        {/* Only render new post button on "/posts" or "/" route */}
         {(location.pathname === "/posts" || location.pathname === "/") && (
           <button
             onClick={() => navigate("/post")}

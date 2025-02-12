@@ -1,25 +1,25 @@
 import {
-  Stack,
   TextInput,
   NumberInput,
   MultiSelect,
-  Checkbox,
   Button,
+  FileInput,
   Textarea,
 } from "@mantine/core";
 import { useDbUpdate, useAuthState } from "../utilities/firebase";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // if request is provided, assumes form is in edit state
 const RequestForm = ({ redirectPath, request, callback }) => {
-  const navigate = useNavigate();
   const [user] = useAuthState();
   const [tagErrorMsg, setTagErrorMsg] = useState("");
   const [compensationErrorMsg, setCompensationErrorMsg] = useState("");
   const [titleErrorMsg, setTitleErrorMsg] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [updateData] = useDbUpdate(`users/${user?.uid}/requests`);
-  const TAGS = ["Buy", "Sell", "Borrow", "Other"];
+  const TAGS = ["Buy", "Sell", "Borrow", "Transportation", "Cleaning", "Other"];
 
   const validate = (formData) => {
     let isValid = true;
@@ -44,16 +44,32 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (file) => {
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    // const tags = TAGS.map((tag) => formData.get(tag)).filter(
-    //   (tag) => tag !== null,
-    // );
     const tags = formData.getAll("tags");
-
     formData.append("tags", tags);
     if (!validate(formData)) return;
+
+    let imageUrl = request?.imageUrl || "";
+    const requestId = request ? request.requestId : `request_${Date.now()}`;
+    if (image) {
+      const storage = getStorage();
+      const imageRef = ref(
+        storage,
+        `requests/${user.uid}/${requestId}/${image.name}`,
+      );
+      await uploadBytes(imageRef, image);
+      imageUrl = await getDownloadURL(imageRef);
+    }
+
     const requestData = {
       [request ? request.requestId : `request_${Date.now()}`]: {
         title: formData.get("title"),
@@ -62,6 +78,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
         compensation: parseInt(formData.get("compensation")),
         tags: formData.get("tags"),
         timestamp: Date.now(),
+        imageUrl,
       },
     };
     updateData(requestData);
@@ -74,9 +91,10 @@ const RequestForm = ({ redirectPath, request, callback }) => {
   return (
     <div className="p-8">
       <form onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold mb-6">Create New Request</h1>
-        <div className="grid grid-cols-3 gap-x-8 gap-y-4">
-          {/* Row 1: Request Title */}
+        <h1 className="text-2xl font-bold mb-6">
+          {request ? "Edit Request" : "Create New Request"}
+        </h1>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
           <div className="col-span-2">
             <TextInput
               label="Request Title"
@@ -85,7 +103,7 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               defaultValue={request?.title}
               required
               error={titleErrorMsg}
-              description="Max 50 characters"
+              description="Max 50 characters."
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
@@ -94,12 +112,29 @@ const RequestForm = ({ redirectPath, request, callback }) => {
             />
           </div>
 
-          <div>
+          <div className="col-span-2">
+            <FileInput
+              accept="image/png,image/jpeg"
+              label="Upload Image"
+              placeholder="Upload Image"
+              onChange={handleImageChange}
+            />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-4 w-32 h-32 object-cover rounded-lg"
+              />
+            )}
+          </div>
+
+          <div className="col-span-2">
             <MultiSelect
               label="Tags"
               name="tags"
               placeholder="Tags"
               data={TAGS.map((tag) => ({ value: tag, label: tag }))}
+              defaultValue={request?.tags}
               error={tagErrorMsg}
               searchable
               clearable
@@ -113,10 +148,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               withinPortal
               required
               nothingFound="No tags available"
-              styles={{
-                input: { width: "300px" },
-                dropdown: { width: "300px" },
-              }}
             />
           </div>
 
@@ -127,12 +158,14 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               placeholder="MM/DD/YYYY"
               type="date"
               required
+              min={new Date().toISOString().split("T")[0]}
               classNames={{
                 input: "bg-gray-100",
                 label: "text-lg font-medium text-gray-800",
               }}
             />
           </div>
+
           <div>
             <TextInput
               label="Location"
@@ -180,27 +213,16 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               }}
             />
           </div>
-        </div>
-
-        <div className="fixed bottom-10 left-100 ">
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => navigate("/posts")} // Navigate to /posts when clicked
-            className="text-gray-800 border-gray-500 hover:text-gray-900 hover:border-gray-700"
-          >
-            Back
-          </Button>
-        </div>
-
-        <div className="fixed bottom-10 right-10">
-          <Button
-            type="submit"
-            size="lg"
-            className="bg-green-600 hover:bg-green-700 text-white"
-          >
-            {request ? "Update" : "Post New Request"}
-          </Button>
+          <div className="col-span-2 px-20">
+            <Button
+              type="submit"
+              size="lg"
+              fullWidth={true}
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              {request ? "Update" : "Post New Request"}
+            </Button>
+          </div>
         </div>
       </form>
     </div>

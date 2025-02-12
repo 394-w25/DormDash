@@ -1,6 +1,6 @@
 import { useDbData, useAuthState } from "../../utilities/firebase.js";
 import React from "react";
-import Request from "../Request.jsx";
+import Request from "../../components/Home/Request.jsx";
 import { getRequests } from "../../utilities/request.js";
 
 function ActiveRequests() {
@@ -21,12 +21,10 @@ function ActiveRequests() {
       {activeRequests.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {activeRequests.map((request) => (
-            <div
-              key={`${request.userId}-${request.requestId}`}
-              className="bg-white shadow-md rounded-md p-4 w-full"
-            >
-              <Request request={request} />
-            </div>
+            <Request
+              key={`${request.userId}=${request.requestId}`}
+              request={request}
+            />
           ))}
         </div>
       ) : (

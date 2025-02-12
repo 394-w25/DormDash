@@ -3,9 +3,8 @@ import React, { useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 import SignIn from "./SignIn";
-import ActiveRequests from "../components/Profile/ActiveList";
-// import PendingRequests from "../components/PendingList";
-import CompletedRequests from "../components/Profile/CompletedList";
+import ActiveRequests from "../components/Profile/ActiveRequests";
+import CompletedRequests from "../components/Profile/CompletedRequests";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 
 const ProfilePage = () => {
@@ -16,7 +15,7 @@ const ProfilePage = () => {
   const completedRef = useRef(null);
   const location = useLocation();
 
-  // ****auto scroll logic for profile page, need to inplement
+  // ****auto scroll logic for profile page, need to implement
   // const scrollToSection = (section) => {
   //   if (section === "active" && activeRef.current) {
   //     activeRef.current.scrollIntoView({ behavior: "smooth" });

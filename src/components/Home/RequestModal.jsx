@@ -6,9 +6,7 @@ const RequestModal = ({ opened, onClose, request, user }) => {
   const emailBody = `Hello ${request.displayName},\n\nI’m interested in your request titled "${request.title}". Please let me know more details.\n\nBest regards,\n${user.displayName}`;
   const emailLink = `https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&su=${encodeURIComponent(
     emailSubject,
-  )}&to=${encodeURIComponent(request.email)}&body=${encodeURIComponent(
-    emailBody,
-  )}`;
+  )}&to=${encodeURIComponent(request.email)}&body=${encodeURIComponent(emailBody)}`;
 
   return (
     <Modal.Root opened={opened} onClose={onClose} size="lg" centered>
@@ -23,6 +21,17 @@ const RequestModal = ({ opened, onClose, request, user }) => {
               <RequestTags request={request} />
             </Group>
             <h1 className="text-2xl font-bold">{request.title}</h1>
+
+            {request.imageUrl && (
+              <div className="w-full flex justify-center">
+                <img
+                  src={request.imageUrl}
+                  alt="Request"
+                  className="w-auto max-w-full max-h-[300px] object-contain rounded-lg"
+                />
+              </div>
+            )}
+
             <div className="flex flex-col">
               <Text>Posted by: {request.displayName}</Text>
               <Text>
@@ -36,10 +45,10 @@ const RequestModal = ({ opened, onClose, request, user }) => {
               <Button onClick={onClose}>BACK</Button>
               {!request.isFulfilled && (
                 <Button
-                  component="a" // Make the button behave like a link
+                  component="a"
                   href={emailLink}
-                  target="_blank" // Open in a new tab
-                  rel="noopener noreferrer" // Security enhancement for external links
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   CONTACT
                 </Button>
