@@ -17,10 +17,11 @@ function ActiveRequests() {
     userFilter: (userId) => userId === user.uid,
     requestFilter: (request) => !request.isFulfilled && request.deadline >= now,
   });
+
   return (
-    <>
+    <div className="w-full">
       {activeRequests.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {activeRequests.map((request) => (
             <Request
               key={`${request.userId}=${request.requestId}`}
@@ -31,7 +32,7 @@ function ActiveRequests() {
       ) : (
         <p className="text-gray-500 text-start">You have no active requests.</p>
       )}
-    </>
+    </div>
   );
 }
 

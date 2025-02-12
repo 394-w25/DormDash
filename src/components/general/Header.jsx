@@ -15,14 +15,13 @@ const Header = () => {
     >
       <div className="h-14 flex justify-between items-center">
         <Group>
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
           <img src={logo} alt="DormDash Logo" style={{ height: 24 }} />
           <Link to="/posts" className="font-lato font-black text-[24px]">
             DormDash
           </Link>
         </Group>
-        {/* Only render new post button on /posts route */}
-        {location.pathname === "/posts" && (
+        {/* Only render new post button on "/posts" or "/" route */}
+        {(location.pathname === "/posts" || location.pathname === "/") && (
           <button
             onClick={() => navigate("/post")}
             className="px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"

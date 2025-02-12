@@ -4,7 +4,6 @@ import RequestModal from "./RequestModal.jsx";
 import ResolveRequest from "../ResolveRequest.jsx";
 import EditRequest from "../EditRequest.jsx";
 import DeleteRequest from "../DeleteRequest.jsx";
-import ProfilePicture from "../Profile/ProfilePicture.jsx";
 import { Stack, Group, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -22,37 +21,47 @@ const Request = ({ request }) => {
       />
       <div
         onClick={open}
-        className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200"
+        className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-row items-start space-x-4 relative min-h-[180px] cursor-pointer"
       >
-        <Stack gap="sm" className="relative h-full">
+        <Stack gap="sm" className="relative flex-1 min-h-full">
           <RequestTags request={request} />
-          <div className="flex flex-col justify-center items-center min-h-20 aspect-square p-2 border-2 rounded-lg absolute top-0 right-0 text-gray-500">
+          <div className="absolute top-0 right-0 flex flex-col items-center min-w-20 p-2 border-2 rounded-lg text-gray-500 bg-white shadow-md">
             <Text fw={700}>Max</Text>
             <h2 className="text-2xl">${request.compensation}</h2>
           </div>
-          <h1 className="w-3/4 my-3 text-2xl font-bold">{request.title}</h1>
-          <Text>{request.description}</Text>
+
+          <Text className="!text-md !text-gray-500 !font-bold">
+            {request.displayName}
+          </Text>
+          <h1 className="w-3/4 my-1 text-3xl text-gray-700 font-bold">
+            {request.title}
+          </h1>
+          <Text className="!text-sm !text-gray-500 !font-bold !w-3/4">
+            Posted on: {new Date(request.timestamp).toLocaleDateString()} ·{" "}
+            {request.location}
+          </Text>
+
+          <Text className="!text-sm !text-gray-500 !w-3/4">
+            {request.description}
+          </Text>
+
           {user?.uid === request?.userId && (
-            <Group>
-              <ResolveRequest request={request} />
-              <EditRequest request={request} />
-              <DeleteRequest request={request} />
+            <Group className="!mt-2 !gap-x-1 !justify-start">
+              <ResolveRequest request={request} className="px-5 py-1 text-lg" />
+              <EditRequest request={request} className="px-3 py-1 text-sm" />
+              <DeleteRequest request={request} className="px-3 py-1 text-sm" />
             </Group>
           )}
-          <div className="mt-auto">
-            <hr className="my-4 w-3/4" />
-            <Group className="h-16">
-              <ProfilePicture photoURL={request.photoURL} />
-              <div className="flex flex-col">
-                <Text c="dimmed">{request.displayName}</Text>
-                <Text>
-                  Posted on: {new Date(request.timestamp).toLocaleDateString()}
-                </Text>
-                <Text>Location: {request.location}</Text>
-              </div>
-            </Group>
-          </div>
         </Stack>
+        {request.imageUrl && (
+          <div className="absolute right-5 bottom-12 w-20 h-20">
+            <img
+              src={request.imageUrl}
+              alt="Request"
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+        )}
       </div>
     </>
   );
