@@ -9,7 +9,6 @@ const Posts = ({
   searchQuery,
   sortField,
   sortOrder,
-  hideExpired,
 }) => {
   const [data, error] = useDbData("/");
 
@@ -38,8 +37,7 @@ const Posts = ({
 
     // then filter out expired postings if user selected the option
     const currentTime = Date.now();
-    const notExpired =
-      !hideExpired || !request.deadline || request.deadline > currentTime;
+    const notExpired = !request.deadline || request.deadline > currentTime;
 
     return (
       matchesTags &&

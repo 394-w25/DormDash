@@ -29,7 +29,6 @@ const PostsPage = () => {
             searchQuery={searchQuery}
             sortField={sortField}
             sortOrder={sortOrder}
-            hideExpired={hideExpired}
           />
           <FilterSortBar
             selectedTags={selectedTags}
@@ -44,8 +43,6 @@ const PostsPage = () => {
             setSortField={setSortField}
             sortOrder={sortOrder}
             setSortOrder={setSortOrder}
-            hideExpired={hideExpired}
-            setHideExpired={setHideExpired}
           />
         </div>
       ) : (

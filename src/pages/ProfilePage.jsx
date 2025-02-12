@@ -6,12 +6,13 @@ import SignIn from "./SignIn";
 import ActiveRequests from "../components/Profile/ActiveRequests";
 import CompletedRequests from "../components/Profile/CompletedRequests";
 import ProfilePicture from "../components/Profile/ProfilePicture";
+import ExpiredRequests from "../components/Profile/ExpiredRequests.jsx";
 
 const ProfilePage = () => {
   const [user] = useAuthState();
 
   const activeRef = useRef(null);
-  // const pendingRef = useRef(null);
+  const expiredRef = useRef(null);
   const completedRef = useRef(null);
   const location = useLocation();
 
@@ -86,17 +87,22 @@ const ProfilePage = () => {
             </div>
 
             {/* Pending */}
-            {/* <div ref={pendingRef} className="bg-yellow-50 flex-1 p-6 rounded-lg shadow-lg">
-              <h2
-                className="text-xl font-bold mb-4"
-                style={{ fontFamily: "Lato, sans-serif" }}
+            {
+              <div
+                ref={expiredRef}
+                className="bg-yellow-50 flex-1 p-6 rounded-lg shadow-lg"
               >
-                Pending Requests
-              </h2>
-              <div className="grid grid-cols-1 gap-4">
-                <ActiveRequests requests={[]} />
+                <h2
+                  className="text-xl font-bold mb-4"
+                  style={{ fontFamily: "Lato, sans-serif" }}
+                >
+                  Expired Requests
+                </h2>
+                <div className="grid grid-cols-1 gap-4">
+                  <ExpiredRequests requests={[]} />
+                </div>
               </div>
-            </div> */}
+            }
 
             {/* Completed */}
             <div
