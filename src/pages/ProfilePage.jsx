@@ -11,23 +11,12 @@ const ProfilePage = () => {
   const [user] = useAuthState();
 
   const activeRef = useRef(null);
-  // const pendingRef = useRef(null);
   const completedRef = useRef(null);
-  const location = useLocation();
-
-  // ****auto scroll logic for profile page, need to implement
-  // const scrollToSection = (section) => {
-  //   if (section === "active" && activeRef.current) {
-  //     activeRef.current.scrollIntoView({ behavior: "smooth" });
-  //   } else if (section === "completed" && completedRef.current) {
-  //     completedRef.current.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
 
   return (
     <>
       {user ? (
-        <div className="mr-4 flex-1 max-h-screen max-w-screen">
+        <div className="mx-4 flex-1 max-h-screen max-w-screen">
           {/* Profile Section */}
           <div>
             <div className="w-full flex items-center justify-between mt-4">
@@ -84,19 +73,6 @@ const ProfilePage = () => {
                 <ActiveRequests requests={[]} />
               </div>
             </div>
-
-            {/* Pending */}
-            {/* <div ref={pendingRef} className="bg-yellow-50 flex-1 p-6 rounded-lg shadow-lg">
-              <h2
-                className="text-xl font-bold mb-4"
-                style={{ fontFamily: "Lato, sans-serif" }}
-              >
-                Pending Requests
-              </h2>
-              <div className="grid grid-cols-1 gap-4">
-                <ActiveRequests requests={[]} />
-              </div>
-            </div> */}
 
             {/* Completed */}
             <div

@@ -1,6 +1,7 @@
 import { useDbData } from "../../utilities/firebase.js";
 import { getRequests } from "../../utilities/request.js";
 import Request from "./Request.jsx";
+import { Burger } from "@mantine/core";
 
 const Posts = ({
   selectedTags,
@@ -10,6 +11,7 @@ const Posts = ({
   sortField,
   sortOrder,
   hideExpired,
+  toggleBar,
 }) => {
   const [data, error] = useDbData("/");
 
@@ -62,9 +64,14 @@ const Posts = ({
 
   return (
     <div className="flex flex-col flex-1">
-      <h1 className="font-lato text-start text-2xl font-bold py-4">Home</h1>
-
-      {/* Filtered Posts */}
+      <div className="flex flex-row justify-between items-center">
+        <h1 className="font-lato text-start text-2xl font-bold py-4">Home</h1>
+        <Burger
+          onClick={toggleBar}
+          size="sm"
+          className="flex lg:hidden items-center justify-center"
+        />
+      </div>
       <section className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         {sortedRequests.map((request, idx) => (
           <Request key={idx} request={request} />

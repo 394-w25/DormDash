@@ -1,18 +1,15 @@
-import { Burger, Group } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Group } from "@mantine/core";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/dormdash-logo.svg";
-import FilterSortBar from "../Home/FilterSortBar";
 
 const Header = () => {
-  const [opened, { toggle }] = useDisclosure(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
     <header
       role="header"
-      className="h-14 bg-body-light border-b border-gray-200 px-md"
+      className="sticky z-50 top-0 h-14 bg-body-light border-b border-gray-200 px-md"
     >
       <div className="h-14 flex justify-between items-center">
         <Group>
@@ -29,13 +26,6 @@ const Header = () => {
             + Post New Request
           </button>
         )}
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          size="sm"
-          className="flex sm:hidden items-center justify-center"
-        />
-        <FilterSortBar isOpen={opened} toggleBar={toggle} />
       </div>
     </header>
   );

@@ -11,6 +11,7 @@ import Header from "./components/general/Header";
 import Dispatcher from "./components/Dispatcher";
 import { SideNavBar } from "./components/general/SideNavBar";
 import SignIn from "./pages/SignIn";
+import { MobileNavBar } from "./components/general/MobileNavBar";
 
 function App() {
   const [user] = useAuthState();
@@ -25,6 +26,7 @@ function App() {
               <Header />
               <div className="flex flex-row flex-1">
                 <SideNavBar />
+                <MobileNavBar />
                 <Dispatcher />
               </div>
             </div>

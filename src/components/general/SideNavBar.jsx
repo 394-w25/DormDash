@@ -7,13 +7,7 @@ const data = [
   {
     label: "Your Profile",
     icon: IconUser,
-    initiallyOpened: false,
     link: "/profile",
-    links: [
-      { label: "Active Requests", link: "/profile" },
-      //   { label: "Pending Requests", link: "/profile/pending" }, // ***refs for autoscroll positions, need to implement
-      { label: "Completed Requests", link: "/profile" },
-    ],
   },
 ];
 

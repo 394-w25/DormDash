@@ -6,6 +6,8 @@ import FilterSortBar from "../components/Home/FilterSortBar.jsx";
 
 const PostsPage = () => {
   const [user] = useAuthState();
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   // filtering
   const [selectedTags, setSelectedTags] = useState([]);
@@ -30,6 +32,7 @@ const PostsPage = () => {
             sortField={sortField}
             sortOrder={sortOrder}
             hideExpired={hideExpired}
+            toggleBar={toggleSidebar}
           />
           <FilterSortBar
             selectedTags={selectedTags}
@@ -46,6 +49,8 @@ const PostsPage = () => {
             setSortOrder={setSortOrder}
             hideExpired={hideExpired}
             setHideExpired={setHideExpired}
+            isOpen={isSidebarOpen}
+            toggleBar={toggleSidebar}
           />
         </div>
       ) : (
