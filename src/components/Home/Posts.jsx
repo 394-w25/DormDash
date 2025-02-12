@@ -65,7 +65,7 @@ const Posts = ({
       <h1 className="font-lato text-start text-2xl font-bold py-4">Home</h1>
 
       {/* Filtered Posts */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <section className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         {sortedRequests.map((request, idx) => (
           <Request key={idx} request={request} />
         ))}

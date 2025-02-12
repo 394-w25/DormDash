@@ -26,6 +26,8 @@ const FilterSortBar = ({
   setSortOrder,
   hideExpired,
   setHideExpired,
+  isOpen,
+  toggleBar,
 }) => {
   //   const [data, error] = useDbData("/");
 
@@ -37,7 +39,11 @@ const FilterSortBar = ({
   //   const allTags = [...new Set(allRequests.flatMap((request) => request.tags))];
 
   return (
-    <Paper className="p-4 ml-4 border-l border-gray-300 w-60 min-w-60 h-window flex-col">
+    <div
+      className={`fixed z-50 top-0 right-0 h-full w-60 bg-white shadow-lg border-l border-gray-300 p-4 flex-col transform transition-transform duration-300 ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
       <Autocomplete
         className=""
         placeholder="Search requests"
@@ -131,7 +137,13 @@ const FilterSortBar = ({
           />
         }
       />
-    </Paper>
+      <button
+        onClick={toggleBar}
+        className="absolute top-4 right-4 text-gray-600 hover:text-black"
+      >
+        ✕
+      </button>
+    </div>
   );
 };
 
