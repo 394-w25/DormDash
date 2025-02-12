@@ -123,7 +123,7 @@ const FilterSortBar = ({
 
       {/* version for small screens */}
       <div
-        className={`fixed z-50 top-0 right-0 h-full w-60 bg-white shadow-lg border-l border-gray-300 p-4 flex-col transform transition-transform duration-300 md:hidden ${
+        className={`fixed z-50 top-0 right-0 h-full w-60 bg-white shadow-lg border-l border-gray-300 p-4 flex-col transform transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
