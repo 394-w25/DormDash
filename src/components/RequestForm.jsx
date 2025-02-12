@@ -132,7 +132,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
       imageUrl = await getDownloadURL(imageRef);
     }
 
-
     const requestData = {
       [request ? request.requestId : `request_${Date.now()}`]: {
         title: formData.get("title"),
@@ -143,7 +142,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
         timestamp: Date.now(),
         deadline: deadlineTimestamp,
         imageUrl,
-
       },
     };
     updateData(requestData);
