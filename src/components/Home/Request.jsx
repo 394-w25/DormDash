@@ -21,7 +21,7 @@ const Request = ({ request }) => {
       />
       <div
         onClick={open}
-        className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-row items-start space-x-4 relative min-h-[180px]"
+        className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-row items-start space-x-4 relative min-h-[180px] cursor-pointer"
       >
         <Stack gap="sm" className="relative flex-1 min-h-full">
           <RequestTags request={request} />

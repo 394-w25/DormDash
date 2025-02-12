@@ -51,7 +51,7 @@ export const LinksGroup = ({
         className={({ isActive }) =>
           `font-medium block rounded w-full p-3 text-sm flex items-center justify-between ${
             isActive ? "text-black bg-blue-100" : "text-gray-900"
-          } hover:bg-gray-100 hover:text-black`
+          } hover:bg-gray-100 hover:text-black mb-1`
         }
         aria-current={({ isActive }) => (isActive ? "page" : undefined)}
       >
