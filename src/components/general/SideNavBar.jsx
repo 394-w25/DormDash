@@ -18,7 +18,7 @@ export function SideNavBar({ scrollToSection }) {
 
   return (
     <nav
-      role="navigation"
+      role="desktop-navigation"
       data-testid="sidebar"
       className="hidden sm:block bg-white h-window h-auto w-52 min-w-52 p-[20px] pt-[5px] flex flex-col border-r border-gray-300"
     >
