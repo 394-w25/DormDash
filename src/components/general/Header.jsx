@@ -15,7 +15,6 @@ const Header = () => {
     >
       <div className="h-14 flex justify-between items-center">
         <Group>
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
           <img src={logo} alt="DormDash Logo" style={{ height: 24 }} />
           <Link to="/posts" className="font-lato font-black text-[24px]">
             DormDash

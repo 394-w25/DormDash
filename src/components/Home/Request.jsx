@@ -25,7 +25,6 @@ const Request = ({ request }) => {
       >
         <Stack gap="sm" className="relative flex-1 min-h-full">
           <RequestTags request={request} />
-
           <div className="absolute top-0 right-0 flex flex-col items-center min-w-20 p-2 border-2 rounded-lg text-gray-500 bg-white shadow-md">
             <Text fw={700}>Max</Text>
             <h2 className="text-2xl">${request.compensation}</h2>
@@ -54,7 +53,6 @@ const Request = ({ request }) => {
             </Group>
           )}
         </Stack>
-
         {request.imageUrl && (
           <div className="absolute right-5 bottom-12 w-20 h-20">
             <img
