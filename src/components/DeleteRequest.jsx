@@ -4,7 +4,12 @@ import { useDbRemove } from "../utilities/firebase";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 
-const DeleteRequest = ({ request }) => {
+const DeleteRequest = ({
+  request,
+  size = "compact",
+  variant = "filled",
+  className,
+}) => {
   const [removeData] = useDbRemove(
     `users/${request?.userId}/requests/${request?.requestId}`,
   );
@@ -28,7 +33,16 @@ const DeleteRequest = ({ request }) => {
       onConfirm: handleClick,
     });
   };
-  return <Button onClick={openConfirmModal}>DELETE</Button>;
+  return (
+    <Button
+      onClick={openConfirmModal}
+      size={size}
+      variant={variant}
+      className={`!px-3 !py-1 !text-sm ${className}`}
+    >
+      DELETE
+    </Button>
+  );
 };
 
 export default DeleteRequest;
