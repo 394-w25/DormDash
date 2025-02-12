@@ -1,17 +1,15 @@
-import { Burger, Group } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Group } from "@mantine/core";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/dormdash-logo.svg";
 
 const Header = () => {
-  const [opened, { toggle }] = useDisclosure(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
     <header
       role="header"
-      className="h-14 bg-body-light border-b border-gray-200 px-md"
+      className="sticky z-50 top-0 h-14 bg-body-light border-b border-gray-200 px-md"
     >
       <div className="h-14 flex justify-between items-center">
         <Group>
@@ -20,13 +18,12 @@ const Header = () => {
             DormDash
           </Link>
         </Group>
-        {/* Only render new post button on "/posts" or "/" route */}
         {(location.pathname === "/posts" || location.pathname === "/") && (
           <button
             onClick={() => navigate("/post")}
-            className="px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"
+            className="hidden sm:flex px-6 py-1 bg-green-600 text-white rounded-md border-none cursor-pointer hover:bg-green-700"
           >
-            Post New Request
+            + Post New Request
           </button>
         )}
       </div>

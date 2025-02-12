@@ -16,9 +16,9 @@ function CompletedRequests() {
     requestFilter: (request) => request.isFulfilled,
   });
   return (
-    <>
+    <div className="mb-16">
       {completedRequests.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {completedRequests.map((request) => (
             <Request
               key={`${request.userId}-${request.requestId}`}
@@ -31,7 +31,7 @@ function CompletedRequests() {
           You have no completed requests.
         </p>
       )}
-    </>
+    </div>
   );
 }
 

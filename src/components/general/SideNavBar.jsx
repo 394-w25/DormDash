@@ -7,13 +7,7 @@ const data = [
   {
     label: "Your Profile",
     icon: IconUser,
-    initiallyOpened: false,
     link: "/profile",
-    links: [
-      { label: "Active Requests", link: "/profile" },
-      //   { label: "Pending Requests", link: "/profile/pending" }, // ***refs for autoscroll positions, need to implement
-      { label: "Completed Requests", link: "/profile" },
-    ],
   },
 ];
 
@@ -24,9 +18,9 @@ export function SideNavBar({ scrollToSection }) {
 
   return (
     <nav
-      role="navigation"
+      role="desktop-navigation"
       data-testid="sidebar"
-      className="bg-white h-window h-auto w-52 min-w-52 p-[20px] pt-[5px] mr-4 flex flex-col border-r border-gray-300"
+      className="hidden sm:block bg-white h-window h-auto w-52 min-w-52 p-[20px] pt-[5px] flex flex-col border-r border-gray-300"
     >
       <ScrollArea className="flex-1 -mx-md">
         <div>{links}</div>

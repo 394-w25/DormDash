@@ -44,6 +44,8 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     }
 
     // Compensation validation
+
+    // Compensation validation
     if (formData.get("compensation") < 0) {
       setCompensationErrorMsg("Compensation cannot be negative.");
       isValid = false;
@@ -72,6 +74,30 @@ const RequestForm = ({ redirectPath, request, callback }) => {
     const now = new Date();
     const nowInCentral = convertToCentralTime(now);
     const todayDate = nowInCentral.toLocaleDateString("sv-SE");
+
+    // Compare dates
+    if (deadlineInCentral <= nowInCentral) {
+      if (deadlineDate === todayDate) {
+        setDeadlineDateErrorMsg("");
+        setDeadlineTimeErrorMsg(
+          `Deadline must be in the future (current time: ${now.toLocaleTimeString(
+            "en-US",
+            {
+              timeZone: "America/Chicago",
+              hour: "2-digit",
+              minute: "2-digit",
+            },
+          )} Central)`,
+        );
+      } else {
+        setDeadlineDateErrorMsg("Deadline must be in the future.");
+        setDeadlineTimeErrorMsg("");
+      }
+      isValid = false;
+    } else {
+      setDeadlineDateErrorMsg("");
+      setDeadlineTimeErrorMsg("");
+    }
 
     // Compare dates
     if (deadlineInCentral <= nowInCentral) {
@@ -267,7 +293,6 @@ const RequestForm = ({ redirectPath, request, callback }) => {
               name="deadlineTime"
               type="time"
               defaultValue={defaultTime || "23:59"}
-              min={undefined}
               error={deadlineTimeErrorMsg}
               required
               min={new Date().toISOString().split("T")[0]}

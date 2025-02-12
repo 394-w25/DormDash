@@ -37,7 +37,7 @@ describe("App component", () => {
     render(<App />);
 
     expect(screen.queryByRole("header")).toBeNull();
-    expect(screen.queryByRole("navigation")).toBeNull();
+    expect(screen.queryByRole("desktop-navigation")).toBeNull();
   });
 
   test("should render header and navsidebar after sign-in", () => {

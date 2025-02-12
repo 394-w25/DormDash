@@ -6,6 +6,8 @@ import FilterSortBar from "../components/Home/FilterSortBar.jsx";
 
 const PostsPage = () => {
   const [user] = useAuthState();
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   // filtering
   const [selectedTags, setSelectedTags] = useState([]);
@@ -19,7 +21,7 @@ const PostsPage = () => {
   const [sortOrder, setSortOrder] = useState("desc"); // default order
 
   return (
-    <>
+    <div className="mb-16">
       {user ? (
         <div className="flex flex-row flex-1">
           <Posts
@@ -29,6 +31,8 @@ const PostsPage = () => {
             searchQuery={searchQuery}
             sortField={sortField}
             sortOrder={sortOrder}
+            hideExpired={hideExpired}
+            toggleBar={toggleSidebar}
           />
           <FilterSortBar
             selectedTags={selectedTags}
@@ -43,12 +47,16 @@ const PostsPage = () => {
             setSortField={setSortField}
             sortOrder={sortOrder}
             setSortOrder={setSortOrder}
+            hideExpired={hideExpired}
+            setHideExpired={setHideExpired}
+            isOpen={isSidebarOpen}
+            toggleBar={toggleSidebar}
           />
         </div>
       ) : (
         <SignIn />
       )}
-    </>
+    </div>
   );
 };
 
