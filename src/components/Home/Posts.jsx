@@ -34,11 +34,17 @@ const Posts = ({
       request.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       request.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       request.location.toLowerCase().includes(searchQuery.toLowerCase());
+
+    // then filter out expired postings if user selected the option
+    const currentTime = Date.now();
+    const notExpired = !request.deadline || request.deadline > currentTime;
+
     return (
       matchesTags &&
       matchesCompensation &&
       !request.isFulfilled &&
-      matchesSearch
+      matchesSearch &&
+      notExpired
     );
   });
 

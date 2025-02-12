@@ -11,9 +11,11 @@ function ActiveRequests() {
   if (data === undefined) return <h1>Loading data...</h1>;
   if (!data) return <h1>No data found</h1>;
 
+  const now = new Date();
+
   const activeRequests = getRequests(data, {
     userFilter: (userId) => userId === user.uid,
-    requestFilter: (request) => !request.isFulfilled,
+    requestFilter: (request) => !request.isFulfilled && request.deadline >= now,
   });
 
   return (

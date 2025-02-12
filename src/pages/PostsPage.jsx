@@ -12,6 +12,7 @@ const PostsPage = () => {
   const [minCompensation, setMinCompensation] = useState(0);
   const [maxCompensation, setMaxCompensation] = useState(1000);
   const [searchQuery, setSearchQuery] = useState("");
+  const [hideExpired, setHideExpired] = useState(true);
 
   // sorting
   const [sortField, setSortField] = useState("postTime"); // default field
